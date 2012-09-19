@@ -1,98 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>7korobi Blog</title>
-  <meta name="author" content="ななころび">
-
-  
-  <meta name="description" content="Ruby;Exported 動画 RubyやLinux対応を積極的に進めるマイクロソフトのオープンソース&lt;3(LOVE)戦略 動画 Squaleの裏側 SqualeというPAASの内部構造
-動画 Ruby Sinatra Rails publish &amp; deploy. &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://7korobi.github.com">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="7korobi Blog" type="application/atom+xml">
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
-  
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">7korobi Blog</a></h1>
-  
-    <h2>A blogging framework for hackers.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:7korobi.github.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
+  <title><![CDATA[7korobi Blog]]></title>
+  <link href="http://7korobi.github.com/atom.xml" rel="self"/>
+  <link href="http://7korobi.github.com/"/>
+  <updated>2012-09-19T16:44:54+09:00</updated>
+  <id>http://7korobi.github.com/</id>
+  <author>
+    <name><![CDATA[ななころび]]></name>
     
-      <h1 class="entry-title"><a href="/blog/2012/09/18/session-platform/">Rubykaigi2012 プラットフォーム技術に関するセッション</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
 
   
-
-
-<time datetime="2012-09-18T12:00:00+09:00" pubdate data-updated="true">2012年09月18日</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>Ruby;Exported</h1>
+  <entry>
+    <title type="html"><![CDATA[rubykaigi2012 プラットフォーム技術に関するセッション]]></title>
+    <link href="http://7korobi.github.com/blog/2012/09/18/session-platform/"/>
+    <updated>2012-09-18T12:00:00+09:00</updated>
+    <id>http://7korobi.github.com/blog/2012/09/18/session-platform</id>
+    <content type="html"><![CDATA[<h1>Ruby;Exported</h1>
 
 <p><a href="http://www.ustream.tv/recorded/25418815">動画</a></p>
 
@@ -351,42 +277,15 @@ http://mobiruby.org/</p>
 </li>
 </ul>
 
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/09/18/session-language/">Rubykaigi2012 Ruby言語に関するセッション</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-09-18T12:00:00+09:00" pubdate data-updated="true">2012年09月18日</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>Towards Ruby 2.0: Progress of VM Internals</h1>
+  <entry>
+    <title type="html"><![CDATA[rubykaigi2012 ruby言語に関するセッション]]></title>
+    <link href="http://7korobi.github.com/blog/2012/09/18/session-language/"/>
+    <updated>2012-09-18T12:00:00+09:00</updated>
+    <id>http://7korobi.github.com/blog/2012/09/18/session-language</id>
+    <content type="html"><![CDATA[<h1>Towards Ruby 2.0: Progress of VM Internals</h1>
 
 <p><a href="http://www.ustream.tv/recorded/25419520">動画</a></p>
 
@@ -847,42 +746,15 @@ Duck typing style</p>
 <li>Setなど、正規形をもたないオブジェクトに対する照合は？</li>
 </ul>
 
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/02/26/trpg-on-giji/">TRPG on 人狼議事</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-02-26T13:38:00+09:00" pubdate data-updated="true">2012年02月26日</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>目的</h2>
+  <entry>
+    <title type="html"><![CDATA[TRPG on 人狼議事]]></title>
+    <link href="http://7korobi.github.com/blog/2012/02/26/trpg-on-giji/"/>
+    <updated>2012-02-26T13:38:00+09:00</updated>
+    <id>http://7korobi.github.com/blog/2012/02/26/trpg-on-giji</id>
+    <content type="html"><![CDATA[<h2>目的</h2>
 
 <p>人狼議事のサイト上で、TRPGを遊べるようにする。
 TRPGには、GMとプレイヤーがシナリオに参加し、集まったキャラクターたちが、次々とシーンを進んでゆき、シナリオを達成する。
@@ -999,42 +871,15 @@ TRPGには、GMとプレイヤーがシナリオに参加し、集まったキ�
 <li><p>シナリオの終了</p></li>
 </ul>
 
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/01/26/rails2-remember/">Rails2_remember</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-01-26T13:23:00+09:00" pubdate data-updated="true">2012年01月26日</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>思い出したほうがよさそうな、Rails2の機能を三つほど。</p>
+  <entry>
+    <title type="html"><![CDATA[rails2_remember]]></title>
+    <link href="http://7korobi.github.com/blog/2012/01/26/rails2-remember/"/>
+    <updated>2012-01-26T13:23:00+09:00</updated>
+    <id>http://7korobi.github.com/blog/2012/01/26/rails2-remember</id>
+    <content type="html"><![CDATA[<p>思い出したほうがよさそうな、Rails2の機能を三つほど。</p>
 
 <p>・<a href="http://apidock.com/rails/Module/delegate">delegate</a>
 ・<a href="http://apidock.com/rails/ActiveSupport/Memoizable/memoize">memoize</a>
@@ -1208,42 +1053,15 @@ TRPGには、GMとプレイヤーがシナリオに参加し、集まったキ�
 </span><span class='line'><span class="n">b</span><span class="o">.</span><span class="n">execute</span> <span class="c1"># =&gt; たまに &quot;保存失敗: B::FetchException&quot;</span>
 </span></code></pre></td></tr></table></div></figure>
 
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/01/26/grant/">他PCからMySQLへ繋ぐ権限</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-01-26T10:21:00+09:00" pubdate data-updated="true">2012年01月26日</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>こういったメッセージが出た場合、denyされている(denied)ので権限を付与しないと動作しない。</p>
+  <entry>
+    <title type="html"><![CDATA[他PCからMySQLへ繋ぐ権限]]></title>
+    <link href="http://7korobi.github.com/blog/2012/01/26/grant/"/>
+    <updated>2012-01-26T10:21:00+09:00</updated>
+    <id>http://7korobi.github.com/blog/2012/01/26/grant</id>
+    <content type="html"><![CDATA[<p>こういったメッセージが出た場合、denyされている(denied)ので権限を付与しないと動作しない。</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -1342,42 +1160,15 @@ TRPGには、GMとプレイヤーがシナリオに参加し、集まったキ�
 </span><span class='line'><span class="p">...</span>
 </span></code></pre></td></tr></table></div></figure>
 
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/01/20/mongodb-2012-size/">MongoDB,2012 ハードウェアサイズ</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-01-20T16:05:00+09:00" pubdate data-updated="true">2012年01月20日</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>Disk IO</h3>
+  <entry>
+    <title type="html"><![CDATA[MongoDB,2012 ハードウェアサイズ]]></title>
+    <link href="http://7korobi.github.com/blog/2012/01/20/mongodb-2012-size/"/>
+    <updated>2012-01-20T16:05:00+09:00</updated>
+    <id>http://7korobi.github.com/blog/2012/01/20/mongodb-2012-size</id>
+    <content type="html"><![CDATA[<h3>Disk IO</h3>
 
 <p>ディスクの容量はあまり重要ではなく、IO速度を考えるべき。
 DDコマンドなどで、ディスクIOスピードを計測しておく。</p>
@@ -1606,42 +1397,15 @@ DDコマンドなどで、ディスクIOスピードを計測しておく。</p>
 </tbody>
 </table>
 
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/01/20/mongodb-2012-attention-manage/">MongoDB_2012 管理者から見た弱点と対策</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-01-20T16:05:00+09:00" pubdate data-updated="true">2012年01月20日</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>プライマリダウン発生時</h3>
+  <entry>
+    <title type="html"><![CDATA[MongoDB_2012 管理者から見た弱点と対策]]></title>
+    <link href="http://7korobi.github.com/blog/2012/01/20/mongodb-2012-attention-manage/"/>
+    <updated>2012-01-20T16:05:00+09:00</updated>
+    <id>http://7korobi.github.com/blog/2012/01/20/mongodb-2012-attention-manage</id>
+    <content type="html"><![CDATA[<h3>プライマリダウン発生時</h3>
 
 <h4>多数決原理</h4>
 
@@ -1682,42 +1446,15 @@ DDコマンドなどで、ディスクIOスピードを計測しておく。</p>
 <li>stepdown() コマンド発行。プライマリを引き継ぐ。（このとき数秒間、書き込みロックが発生。）</li>
 </ul>
 
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/01/20/mongodb-2012-attention-app/">MongoDB_2012 アプリから見た弱点と対策</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-01-20T16:05:00+09:00" pubdate data-updated="true">2012年01月20日</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>トランザクション的な書込操作</h3>
+  <entry>
+    <title type="html"><![CDATA[MongoDB_2012 アプリから見た弱点と対策]]></title>
+    <link href="http://7korobi.github.com/blog/2012/01/20/mongodb-2012-attention-app/"/>
+    <updated>2012-01-20T16:05:00+09:00</updated>
+    <id>http://7korobi.github.com/blog/2012/01/20/mongodb-2012-attention-app</id>
+    <content type="html"><![CDATA[<h3>トランザクション的な書込操作</h3>
 
 <p>10gen社は、今後も含めそうした方向への投資をしない。
 <strong>ameba pico</strong>、<strong>アニマルランド</strong>の事例のように、トランザクションを求めない設計をしてゆくと共に、どうしても必要だが高いスケーラビリティを求めはしない、という部分については、RDBMSを併用するなどしてそれぞれの長所を活かすとよい。</p>
@@ -1741,42 +1478,15 @@ DDコマンドなどで、ディスクIOスピードを計測しておく。</p>
 <p>chunk migration中に<a href="http://d.hatena.ne.jp/matsuou1/20110415/1302873577">count値がずれて表示される</a>現象。</p>
 
 <p>（mongoDB2.0 までには対策なし。）</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/01/20/mongodb-2012-schema-design/">MongoDB_2012 スキーマデザイン</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-01-20T16:02:00+09:00" pubdate data-updated="true">2012年01月20日</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>ドキュメント設計（テーブル設計）</h2>
+  <entry>
+    <title type="html"><![CDATA[MongoDB_2012 スキーマデザイン]]></title>
+    <link href="http://7korobi.github.com/blog/2012/01/20/mongodb-2012-schema-design/"/>
+    <updated>2012-01-20T16:02:00+09:00</updated>
+    <id>http://7korobi.github.com/blog/2012/01/20/mongodb-2012-schema-design</id>
+    <content type="html"><![CDATA[<h2>ドキュメント設計（テーブル設計）</h2>
 
 <p><a href="http://mongoid.org/docs/relations.html">Mongoid</a>を使いましょう。
 embeddedオブジェクトは高速ですが、引き換えに総浚い検索がやりづらくなります。
@@ -1901,168 +1611,617 @@ rootまでの祖先を辿れるよう、配列に保管しましょう。（配�
 </span><span class='line'><span class="p">{</span><span class="nx">_id</span><span class="o">:</span><span class="s2">&quot;3&quot;</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span><span class="s2">&quot;rect&quot;</span><span class="p">,</span>   <span class="nx">area</span><span class="o">:</span><span class="mi">10</span><span class="p">,</span> <span class="nx">length</span><span class="o">:</span><span class="mi">5</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">2</span><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
-</div>
+]]></content>
+  </entry>
   
+  <entry>
+    <title type="html"><![CDATA[sinatra]]></title>
+    <link href="http://7korobi.github.com/blog/2011/12/15/sinatra/"/>
+    <updated>2011-12-15T12:38:00+09:00</updated>
+    <id>http://7korobi.github.com/blog/2011/12/15/sinatra</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
   
+  <entry>
+    <title type="html"><![CDATA[formtastic]]></title>
+    <link href="http://7korobi.github.com/blog/2011/12/11/formtastic/"/>
+    <updated>2011-12-11T01:25:00+09:00</updated>
+    <id>http://7korobi.github.com/blog/2011/12/11/formtastic</id>
+    <content type="html"><![CDATA[<p>Formtasticというプラグインはなかなか便利です。
+モデルの変更にあわせて自動でフォームの項目を調節してくれる、inputsというメソッドが最高にありがたい。</p>
+
+<p>…ですが、これ、ActiveRecordには対応しているんですが、MongoDBだと動かないんですね。
+他の変更も含め、Gemに固めてやろうといろいろ模索していますが、とりあえず最低限なにが必要なのかを覚書き。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">Mongoid</span>
+</span><span class='line'>  <span class="k">module</span> <span class="nn">Document</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">included</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">def</span> <span class="nc">base</span><span class="o">.</span><span class="nf">field</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
+</span><span class='line'>        <span class="k">super</span>
+</span><span class='line'>        <span class="err">記録を取る</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>      <span class="k">def</span> <span class="nc">base</span><span class="o">.</span><span class="nf">referenced_in</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
+</span><span class='line'>        <span class="k">super</span>
+</span><span class='line'>        <span class="err">記録を取る</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>      <span class="k">def</span> <span class="nc">base</span><span class="o">.</span><span class="nf">references_many</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
+</span><span class='line'>        <span class="k">super</span>
+</span><span class='line'>        <span class="err">記録を取る</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>      <span class="k">def</span> <span class="nc">base</span><span class="o">.</span><span class="nf">embedded_in</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
+</span><span class='line'>        <span class="k">super</span>
+</span><span class='line'>        <span class="err">記録を取る</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>      <span class="k">def</span> <span class="nc">base</span><span class="o">.</span><span class="nf">embeds_many</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
+</span><span class='line'>        <span class="k">super</span>
+</span><span class='line'>        <span class="err">記録を取る</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>      <span class="k">def</span> <span class="nc">base</span><span class="o">.</span><span class="nf">references_and_referenced_in_many</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
+</span><span class='line'>        <span class="k">super</span>
+</span><span class='line'>        <span class="err">記録を取る</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>      <span class="n">base</span><span class="o">.</span><span class="n">class_eval</span> <span class="k">do</span>
+</span><span class='line'>        <span class="k">def</span> <span class="nf">column_for_attribute</span><span class="p">(</span><span class="n">attribute_name</span><span class="p">)</span>
+</span><span class='line'>          <span class="err">なんとかする</span>
+</span><span class='line'>        <span class="k">end</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>      <span class="k">def</span> <span class="nc">base</span><span class="o">.</span><span class="nf">content_columns</span>
+</span><span class='line'>        <span class="err">なんとかする</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>      <span class="k">def</span> <span class="nc">base</span><span class="o">.</span><span class="nf">reflections</span>
+</span><span class='line'>        <span class="n">relations</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">module</span> <span class="nn">Formtastic</span>
+</span><span class='line'>  <span class="k">module</span> <span class="nn">Inputs</span>
+</span><span class='line'>    <span class="k">class</span> <span class="nc">ArrayInput</span>
+</span><span class='line'>      <span class="kp">include</span> <span class="no">Base</span>
+</span><span class='line'>      <span class="kp">include</span> <span class="no">Base</span><span class="o">::</span><span class="no">Stringish</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">def</span> <span class="nf">to_html</span>
+</span><span class='line'>        <span class="vi">@object</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">exp</span><span class="o">|</span>
+</span><span class='line'>          <span class="n">input_wrapping</span> <span class="k">do</span>
+</span><span class='line'>            <span class="n">label_html</span> <span class="o">&lt;&lt;</span>
+</span><span class='line'>            <span class="err">どうにかする</span>
+</span><span class='line'>          <span class="k">end</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">module</span> <span class="nn">Formtastic</span>
+</span><span class='line'>  <span class="k">module</span> <span class="nn">Helpers</span>
+</span><span class='line'>    <span class="k">module</span> <span class="nn">InputHelper</span>
+</span><span class='line'>      <span class="kp">protected</span>
+</span><span class='line'>      <span class="k">def</span> <span class="nf">default_input_type</span><span class="p">(</span><span class="nb">method</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
+</span><span class='line'>        <span class="err">大幅に書き換え。</span>
+</span><span class='line'>        <span class="no">ActiveRecord</span><span class="err">ではありえないような、</span>
+</span><span class='line'>        <span class="nb">Array</span><span class="err">型などの入力用フォームに対応する。</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-    </article>
+<p>けっこう長い！</p>
+
+<p>実際にはもちろん、メソッド定義の中身も必要です。</p>
+]]></content>
+  </entry>
   
+  <entry>
+    <title type="html"><![CDATA[module]]></title>
+    <link href="http://7korobi.github.com/blog/2011/12/08/module/"/>
+    <updated>2011-12-08T17:16:00+09:00</updated>
+    <id>http://7korobi.github.com/blog/2011/12/08/module</id>
+    <content type="html"><![CDATA[<p>一列目<br />
+<div class='bogus-wrapper'><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">A</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">a</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>  <span class="n">A</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">B</span>
+</span><span class='line'>  <span class="kp">include</span> <span class="n">A</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">C</span>
+</span><span class='line'>  <span class="kp">extend</span> <span class="n">A</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></div></p>
+<p>二列目<br />
+<div class='bogus-wrapper'><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">A</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">a</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>  <span class="n">A</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span class='line'>  <span class="kp">module_function</span> <span class="ss">:a</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">B</span>
+</span><span class='line'>  <span class="kp">include</span> <span class="n">A</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">C</span>
+</span><span class='line'>  <span class="kp">extend</span> <span class="n">A</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></div></p>
+<p>三列目<br />
+<div class='bogus-wrapper'><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">A</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">a</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>  <span class="n">A</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">B</span>
+</span><span class='line'>  <span class="kp">include</span> <span class="n">A</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">C</span>
+</span><span class='line'>  <span class="kp">extend</span> <span class="n">A</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></div></p>
+<table>
+	<tr>
+		<td colspan="2">書いたソースコード    </td>
+		<th>一列目</th>
+		<th>二列目</th>
+		<th>三列目</th>
+	</tr>
+	<tr>
+		<th>Aのモジュール関数       </th>
+		<th>A.a           </th>
+		<td style="text-align:center;">×</td>
+		<td style="text-align:center;">○</td>
+		<td style="text-align:center;">○</td>
+	</tr>
+	<tr>
+		<th>Aの定数               </th>
+		<th>A::A           </th>
+		<td style="text-align:center;">○</td>
+		<td style="text-align:center;">○</td>
+		<td style="text-align:center;">○</td>
+	</tr>
+	<tr>
+		<th>Bの特異メソッド(private)</th>
+		<th>B.send(:a)    </th>
+		<td style="text-align:center;">×</td>
+		<td style="text-align:center;">×</td>
+		<td style="text-align:center;">×</td>
+	</tr>
+	<tr>
+		<th>Bの特異メソッド         </th>
+		<th>B.a           </th>
+		<td style="text-align:center;">×</td>
+		<td style="text-align:center;">×</td>
+		<td style="text-align:center;">×</td>
+	</tr>
+	<tr>
+		<th>Bのメソッド(private)   </th>
+		<th>B.new.send(:a)</th>
+		<td style="text-align:center;">○</td>
+		<td style="text-align:center;">○</td>
+		<td style="text-align:center;">×</td>
+	</tr>
+	<tr>
+		<th>Bのメソッド            </th>
+		<th>B.new.a       </th>
+		<td style="text-align:center;">○</td>
+		<td style="text-align:center;">×</td>
+		<td style="text-align:center;">×</td>
+	</tr>
+	<tr>
+		<th>Bの定数               </th>
+		<th>B::A           </th>
+		<td style="text-align:center;">○</td>
+		<td style="text-align:center;">○</td>
+		<td style="text-align:center;">○</td>
+	</tr>
+	<tr>
+		<th>Cの特異メソッド(private)</th>
+		<th>C.send(:a)    </th>
+		<td style="text-align:center;">○</td>
+		<td style="text-align:center;">○</td>
+		<td style="text-align:center;">×</td>
+	</tr>
+	<tr>
+		<th>Cの特異メソッド         </th>
+		<th>C.a           </th>
+		<td style="text-align:center;">×</td>
+		<td style="text-align:center;">○</td>
+		<td style="text-align:center;">×</td>
+	</tr>
+	<tr>
+		<th>Cのメソッド(private)   </th>
+		<th>C.new.send(:a)</th>
+		<td style="text-align:center;">×</td>
+		<td style="text-align:center;">○</td>
+		<td style="text-align:center;">×</td>
+	</tr>
+	<tr>
+		<th>Cのメソッド            </th>
+		<th>C.new.a       </th>
+		<td style="text-align:center;">×</td>
+		<td style="text-align:center;">×</td>
+		<td style="text-align:center;">×</td>
+	</tr>
+	<tr>
+		<th>Cの定数               </th>
+		<th>C::A           </th>
+		<td style="text-align:center;">×</td>
+		<td style="text-align:center;">×</td>
+		<td style="text-align:center;">×</td>
+	</tr>
+</table>]]></content>
+  </entry>
   
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/12/15/sinatra/">Sinatra</a></h1>
-    
-    
-      <p class="meta">
-        
+  <entry>
+    <title type="html"><![CDATA[MongoDB Update 治った]]></title>
+    <link href="http://7korobi.github.com/blog/2011/12/07/mongodb-update/"/>
+    <updated>2011-12-07T20:12:00+09:00</updated>
+    <id>http://7korobi.github.com/blog/2011/12/07/mongodb-update</id>
+    <content type="html"><![CDATA[<p>治りました。
+MongoDBでは、データ構造がおかしい場合、アップデートを受け付けなくなることがあるようです。</p>
+
+<p>状況のおさらい
+- update.$push しても要素が変化しない。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">MONGODB</span> <span class="n">giji</span><span class="o">[</span><span class="s1">&#39;chr_sets&#39;</span><span class="o">].</span><span class="n">find</span><span class="p">({</span><span class="ss">:_id</span><span class="o">=&gt;</span><span class="s2">&quot;sf&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'><span class="o">=&gt;</span> <span class="p">{</span><span class="s2">&quot;_id&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;sf&quot;</span><span class="p">,</span> <span class="s2">&quot;chr_jobs&quot;</span><span class="o">=&gt;[.</span><span class="n">.</span><span class="o">.</span><span class="mi">10</span> <span class="n">elements</span><span class="o">.</span><span class="n">.</span><span class="o">.]</span><span class="p">,</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">MONGODB</span> <span class="n">giji</span><span class="o">[</span><span class="s1">&#39;chr_sets&#39;</span><span class="o">].</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;_id&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;sf&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;$push&quot;</span><span class="o">=&gt;</span><span class="p">{</span><span class="s2">&quot;chr_jobs&quot;</span><span class="o">=&gt;</span><span class="p">{</span><span class="s2">&quot;job&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="s2">&quot;face_id&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="s2">&quot;_id&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;test&quot;</span><span class="p">}}})</span>
+</span><span class='line'><span class="no">MONGODB</span> <span class="n">giji</span><span class="o">[</span><span class="s1">&#39;chr_sets&#39;</span><span class="o">].</span><span class="n">update</span><span class="p">({</span><span class="ss">:_id</span><span class="o">=&gt;</span><span class="s2">&quot;sf&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;$push&quot;</span><span class="o">=&gt;</span><span class="p">{</span><span class="s2">&quot;chr_jobs&quot;</span><span class="o">=&gt;</span><span class="p">{</span><span class="s2">&quot;job&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="s2">&quot;face_id&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="s2">&quot;_id&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;test&quot;</span><span class="p">}}})</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">MONGODB</span> <span class="n">giji</span><span class="o">[</span><span class="s1">&#39;chr_sets&#39;</span><span class="o">].</span><span class="n">find</span><span class="p">({</span><span class="ss">:_id</span><span class="o">=&gt;</span><span class="s2">&quot;sf&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="o">[[</span><span class="ss">:chr_set_id</span><span class="p">,</span> <span class="ss">:asc</span><span class="o">]]</span><span class="p">)</span>
+</span><span class='line'><span class="o">=&gt;</span> <span class="p">{</span><span class="s2">&quot;_id&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;sf&quot;</span><span class="p">,</span> <span class="s2">&quot;chr_jobs&quot;</span><span class="o">=&gt;[.</span><span class="n">.</span><span class="o">.</span><span class="mi">10</span> <span class="n">elements</span><span class="o">.</span><span class="n">.</span><span class="o">.]</span><span class="p">,</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
+<p>このときのデータ構造が問題でした。こんなのだったんですが（見やすくするため、yaml形式にしています。）</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="nn">---</span>
+</span><span class='line'><span class="s">&#39;&#39;</span><span class="p-Indicator">:</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">csid</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">sf_sf10</span>
+</span><span class='line'><span class="l-Scalar-Plain">_id</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">sf</span>
+</span><span class='line'><span class="l-Scalar-Plain">admin</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">黒体放射のエヴェレット解釈</span>
+</span><span class='line'><span class="l-Scalar-Plain">chr_set_id</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">sf</span>
+</span><span class='line'><span class="l-Scalar-Plain">maker</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">重ね合せ猫のユニタリ変換</span>
+</span><span class='line'>
+</span><span class='line'><span class="l-Scalar-Plain">chr_jobs</span><span class="p-Indicator">:</span>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">face_id</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">sf01</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">job</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">通信士</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">_id</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">sf01</span>
+</span><span class='line'><span class="l-Scalar-Plain">...(9 items)</span>
+</span><span class='line'>
+</span><span class='line'><span class="l-Scalar-Plain">chr_npcs</span><span class="p-Indicator">:</span>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">caption</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">明後日への道標</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">face_id</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">sf04</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">npc</span><span class="p-Indicator">:</span>
+</span><span class='line'>  <span class="p-Indicator">-</span> <span class="kt">!</span> <span class="s">&#39;とたたたたんっ。&lt;br&gt;&lt;br&gt;&lt;b&gt;めざましい速さで木の洞に駆け込むと、じっと潜んだ暗闇に瞳がふたつ。&lt;br&gt;いちど大好きな閉所に収まると、そうかんたんに出てはこないのだ。&lt;/b&gt;</span><span class="nv"> </span><span class="s">&#39;</span>
+</span><span class='line'>  <span class="p-Indicator">-</span> <span class="kt">!</span> <span class="s">&#39;ちゅー！&lt;br&gt;&lt;br&gt;　ちゅー！&lt;br&gt;&lt;br&gt;&lt;b&gt;がりがり、がりがり。ケージの縁をひっかくと、うろうろ、うろうろ右へ左へ駆け回る。木の洞に目もくれず、夜中じゅう走り続けるのだった……&lt;/b&gt;</span><span class="nv"> </span><span class="s">&#39;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">_id</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">sf04</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">csid</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">sf</span>
+</span><span class='line'>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">caption</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">明後日への道標（ナユタ）</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">face_id</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">sf10</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">npc</span><span class="p-Indicator">:</span>
+</span><span class='line'>  <span class="p-Indicator">-</span> <span class="kt">!</span> <span class="s">&#39;とたたたたんっ。&lt;br&gt;&lt;br&gt;&lt;b&gt;めざましい速さで木の洞に駆け込むと、じっと潜んだ暗闇に瞳がふたつ。&lt;br&gt;いちど大好きな閉所に収まると、そうかんたんに出てはこないのだ。&lt;/b&gt;</span><span class="nv"> </span><span class="s">&#39;</span>
+</span><span class='line'>  <span class="p-Indicator">-</span> <span class="kt">!</span> <span class="s">&#39;ちゅー！&lt;br&gt;&lt;br&gt;　ちゅー！&lt;br&gt;&lt;br&gt;&lt;b&gt;がりがり、がりがり。ケージの縁をひっかくと、うろうろ、うろうろ右へ左へ駆け回る。木の洞に目もくれず、夜中じゅう走り続けるのだった……&lt;/b&gt;</span><span class="nv"> </span><span class="s">&#39;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">_id</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">sf10</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
+<p>これを、こうする。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">_id</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">sf</span>
+</span><span class='line'><span class="l-Scalar-Plain">admin</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">黒体放射のエヴェレット解釈</span>
+</span><span class='line'><span class="l-Scalar-Plain">chr_set_id</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">sf</span>
+</span><span class='line'><span class="l-Scalar-Plain">maker</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">重ね合せ猫のユニタリ変換</span>
+</span><span class='line'>
+</span><span class='line'><span class="l-Scalar-Plain">chr_jobs</span><span class="p-Indicator">:</span>
+</span><span class='line'><span class="l-Scalar-Plain">...(後略)</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
+<p>再度、試してみると…</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">063</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="no">ChrSet</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;sf&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">chr_jobs</span> <span class="o">&lt;&lt;</span> <span class="no">ChrJob</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">job</span><span class="ss">:&#39;test&#39;</span><span class="p">,</span> <span class="n">face_id</span><span class="ss">:&#39;test&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="no">MONGODB</span> <span class="n">giji</span><span class="o">[</span><span class="s1">&#39;chr_sets&#39;</span><span class="o">].</span><span class="n">find</span><span class="p">({</span><span class="ss">:_id</span><span class="o">=&gt;</span><span class="s2">&quot;sf&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="o">[[</span><span class="ss">:chr_set_id</span><span class="p">,</span> <span class="ss">:asc</span><span class="o">]]</span><span class="p">)</span>
+</span><span class='line'><span class="no">MONGODB</span> <span class="n">giji</span><span class="o">[</span><span class="s1">&#39;chr_sets&#39;</span><span class="o">].</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;_id&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;sf&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;$pushAll&quot;</span><span class="o">=&gt;</span><span class="p">{</span><span class="s2">&quot;chr_jobs&quot;</span><span class="o">=&gt;[</span><span class="p">{</span><span class="s2">&quot;job&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="s2">&quot;face_id&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="s2">&quot;_id&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;test&quot;</span><span class="p">}</span><span class="o">]</span><span class="p">}})</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">MONGODB</span> <span class="n">giji</span><span class="o">[</span><span class="s1">&#39;chr_sets&#39;</span><span class="o">].</span><span class="n">find</span><span class="p">({</span><span class="ss">:_id</span><span class="o">=&gt;</span><span class="s2">&quot;sf&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="o">[[</span><span class="ss">:chr_set_id</span><span class="p">,</span> <span class="ss">:asc</span><span class="o">]]</span><span class="p">)</span>
+</span><span class='line'><span class="o">=&gt;</span> <span class="o">[.</span><span class="n">.</span><span class="o">.</span><span class="mi">10</span> <span class="n">elements</span><span class="o">.</span><span class="n">.</span><span class="o">.</span><span class="n">,</span> <span class="c1">#&lt;ChrJob _id: test, _type: nil, job: &quot;test&quot;, face_id: &quot;test&quot;&gt;]</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
+<p>増えた！</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">076</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="no">ChrSet</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;sf&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">chr_jobs</span><span class="o">.</span><span class="n">pop</span><span class="o">.</span><span class="n">delete</span>
+</span><span class='line'><span class="no">MONGODB</span> <span class="n">giji</span><span class="o">[</span><span class="s1">&#39;chr_sets&#39;</span><span class="o">].</span><span class="n">find</span><span class="p">({</span><span class="ss">:_id</span><span class="o">=&gt;</span><span class="s2">&quot;sf&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="o">[[</span><span class="ss">:chr_set_id</span><span class="p">,</span> <span class="ss">:asc</span><span class="o">]]</span><span class="p">)</span>
+</span><span class='line'><span class="no">MONGODB</span> <span class="n">giji</span><span class="o">[</span><span class="s1">&#39;chr_sets&#39;</span><span class="o">].</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;_id&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;sf&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;$pull&quot;</span><span class="o">=&gt;</span><span class="p">{</span><span class="s2">&quot;chr_jobs&quot;</span><span class="o">=&gt;</span><span class="p">{</span><span class="s2">&quot;_id&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;test&quot;</span><span class="p">}}})</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">MONGODB</span> <span class="n">giji</span><span class="o">[</span><span class="s1">&#39;chr_sets&#39;</span><span class="o">].</span><span class="n">find</span><span class="p">({</span><span class="ss">:_id</span><span class="o">=&gt;</span><span class="s2">&quot;sf&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="o">[[</span><span class="ss">:chr_set_id</span><span class="p">,</span> <span class="ss">:asc</span><span class="o">]]</span><span class="p">)</span>
+</span><span class='line'><span class="o">=&gt;</span> <span class="o">[.</span><span class="n">.</span><span class="o">.</span><span class="mi">10</span> <span class="n">elements</span><span class="o">.</span><span class="n">.</span><span class="o">.]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>消せた！</p>
+
+<p>と、いう顛末のようでした。キーに空文字を含むようなドキュメントが、この現象を引き起こしていたようです。</p>
+
+<p>せっせと修正…。ドキュメントを削除して、修正版を挿入しなおすドキドキ作業。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">ChrSet</span><span class="o">.</span><span class="n">all</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span><span class="o">|</span><span class="n">o</span><span class="o">|</span> <span class="n">o</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span> <span class="n">o</span><span class="o">.</span><span class="n">delete</span><span class="p">;</span> <span class="no">ChrSet</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">attributes</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">;</span> <span class="nb">p</span> <span class="n">o</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
+  <entry>
+    <title type="html"><![CDATA[MongoDB update 失敗]]></title>
+    <link href="http://7korobi.github.com/blog/2011/12/05/mongodb-update/"/>
+    <updated>2011-12-05T22:00:00+09:00</updated>
+    <id>http://7korobi.github.com/blog/2011/12/05/mongodb-update</id>
+    <content type="html"><![CDATA[<p>Ruby on Rails3を楽しく使っていたんだけれど・・・。</p>
+
+<p>Mongoidから、embeddedオブジェクトを追加すると、いっけん動作しているように見えてデータベースに格納されない。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">ChrSet</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;animal&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">chr_jobs</span> <span class="o">&lt;&lt;</span> <span class="no">ChrJob</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">job</span><span class="ss">:&#39;z&#39;</span><span class="p">,</span><span class="n">face_id</span><span class="ss">:&#39;z&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="no">MONGODB</span> <span class="n">giji</span><span class="o">[</span><span class="s1">&#39;chr_sets&#39;</span><span class="o">].</span><span class="n">find</span><span class="p">({</span><span class="ss">:_id</span><span class="o">=&gt;</span><span class="s2">&quot;animal&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="o">[[</span><span class="ss">:chr_set_id</span><span class="p">,</span> <span class="ss">:asc</span><span class="o">]]</span><span class="p">)</span>
+</span><span class='line'><span class="no">MONGODB</span> <span class="n">giji</span><span class="o">[</span><span class="s1">&#39;chr_sets&#39;</span><span class="o">].</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;_id&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;animal&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;$pushAll&quot;</span><span class="o">=&gt;</span><span class="p">{</span><span class="s2">&quot;chr_jobs&quot;</span><span class="o">=&gt;[</span><span class="p">{</span><span class="s2">&quot;job&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="s2">&quot;face_id&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="s2">&quot;_id&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;z&quot;</span><span class="p">}</span><span class="o">]</span><span class="p">}})</span>
+</span><span class='line'><span class="o">=&gt;</span> <span class="o">[</span><span class="c1">#&lt;ChrJob _id: z, _type: nil, job: &quot;z&quot;, face_id: &quot;z&quot;&gt;]</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-<time datetime="2011-12-15T12:38:00+09:00" pubdate data-updated="true">2011年12月15日</time>
-        
-      </p>
-    
-  </header>
+<p>こんなふうに、MongoDB上はupdate.$pushAllという扱いをしているみたいなのだけれどなあ。</p>
+
+<p>苦肉の策でオブジェクトを２つつくり、片方を削除、もう片方を更新してから保存すると、保存される。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">MONGODB</span> <span class="n">giji</span><span class="o">[</span><span class="s1">&#39;chr_sets&#39;</span><span class="o">].</span><span class="n">insert</span><span class="p">(</span><span class="o">[</span><span class="p">{</span><span class="s2">&quot;&quot;</span><span class="o">=&gt;</span><span class="p">{</span><span class="s2">&quot;csid&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;animal&quot;</span><span class="p">},</span> <span class="s2">&quot;admin&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;大地の震動&quot;</span><span class="p">,</span> <span class="s2">&quot;chr_jobs&quot;</span><span class="o">=&gt;[.</span><span class="n">.</span><span class="o">.]</span><span class="p">,</span> <span class="s2">&quot;chr_npcs&quot;</span><span class="o">=&gt;[.</span><span class="n">.</span><span class="o">.]</span><span class="p">,</span> <span class="s2">&quot;chr_set_id&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;animal&quot;</span><span class="p">,</span> <span class="s2">&quot;maker&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;草原のざわめき&quot;</span><span class="p">,</span> <span class="s2">&quot;_id&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;animal&quot;</span><span class="p">}</span><span class="o">]</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-  <div class="entry-content">
-</div>
+<p>つまり、insertはできるが、updateはできない。</p>
+
+<p>そういう症状になっていることになるんだけれど・・・なんでだ？
+謎が解けない</p>
+]]></content>
+  </entry>
   
+  <entry>
+    <title type="html"><![CDATA[New Blog]]></title>
+    <link href="http://7korobi.github.com/blog/2011/12/04/new-blog/"/>
+    <updated>2011-12-04T21:00:00+09:00</updated>
+    <id>http://7korobi.github.com/blog/2011/12/04/new-blog</id>
+    <content type="html"><![CDATA[<p>書き溜める場所にしようっと。</p>
+
+<p>h2.準備</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>git clone git://github.com/imathis/octopress.git octopress
+</span><span class='line'><span class="nb">cd </span>octopress
+</span><span class='line'>
+</span><span class='line'>github -&gt; new repository
+</span><span class='line'>  name: 7korobi.github.com
+</span><span class='line'>  url:  7korobi.github.com
+</span><span class='line'>
+</span><span class='line'>rake setup_github_pages
+</span><span class='line'>git@github.com:7korobi/7korobi.github.com.git
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>h2.記事作りから公開まで</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>rake new_post<span class="o">[</span><span class="s2">&quot;New Blog&quot;</span><span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'>vi <span class="nb">source</span>/_posts/2011-12-05-new-blog.markdown
+</span><span class='line'>
+</span><span class='line'>vi _config.yml
+</span><span class='line'>
+</span><span class='line'>rake preview
+</span><span class='line'>rake deploy
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li><a href="https://gist.github.com/1438677">markdown記法</a></li>
+<li><a href="http://redmine.jp/tech_note/textile">textile記法</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
-
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/blog/page/2/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2012/09/18/session-platform/">rubykaigi2012 プラットフォーム技術に関するセッション</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/09/18/session-language/">rubykaigi2012 ruby言語に関するセッション</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/02/26/trpg-on-giji/">TRPG on 人狼議事</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/01/26/rails2-remember/">rails2_remember</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/01/26/grant/">他PCからMySQLへ繋ぐ権限</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>Github Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/7korobi">@7korobi</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: '7korobi',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("7korobi", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/7korobi" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @7korobi</a>
-  
-</section>
-
-
-
-
-
-  
-</aside>
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - ななころび -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
-</html>
+</feed>

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ruby | 7korobi Blog]]></title>
+  <link href="http://7korobi.github.com/blog/categories/ruby/atom.xml" rel="self"/>
+  <link href="http://7korobi.github.com/"/>
+  <updated>2012-09-19T16:44:54+09:00</updated>
+  <id>http://7korobi.github.com/</id>
+  <author>
+    <name><![CDATA[ななころび]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[rails2_remember]]></title>
+    <link href="http://7korobi.github.com/blog/2012/01/26/rails2-remember/"/>
+    <updated>2012-01-26T13:23:00+09:00</updated>
+    <id>http://7korobi.github.com/blog/2012/01/26/rails2-remember</id>
+    <content type="html"><![CDATA[<p>思い出したほうがよさそうな、Rails2の機能を三つほど。</p>
+
+<p>・<a href="http://apidock.com/rails/Module/delegate">delegate</a>
+・<a href="http://apidock.com/rails/ActiveSupport/Memoizable/memoize">memoize</a>
+・<a href="http://apidock.com/rails/ActionDispatch/Rescue/rescue_from">rescue_from</a></p>
+
+<h2>delegate</h2>
+
+<p>``` ruby
+class A
+  attr_reader :b
+  def initialize</p>
+
+<pre><code>@b = OpenStruct.new(
+  foo: 'b.foo',
+  bar: 'b.bar',
+  baz: 'b.baz'
+)
+</code></pre>
+
+<p>  end
+  delegate :foo, :to=>:b
+  delegate :bar, :to=>:b, :prefix=>true
+  delegate :baz, :to=>:b, :prefix=>"target"
+  delegate :quod, :to=>:@b, :prefix=>"target"
+end</p>
+
+<h1>ArgumentError: Can only automatically set the delegation prefix when delegating to a method.</h1>
+
+<p>a = A.new
+a.foo        # => b.foo
+a.b_bar      # => b.bar
+a.target_baz # => b.baz
+a.target_quod # NoMethodError: undefined method `target_quod' for ...</p>
+
+<p>```</p>
+
+<h2>memoize</h2>
+
+<p>``` ruby
+class A
+  extend ActiveSupport::Memoizable
+  def foo(a,b)</p>
+
+<pre><code>puts 'a.foo exec!'
+a + b
+</code></pre>
+
+<p>  end
+  memoize :foo
+end</p>
+
+<p>a = A.new
+a.foo(1,2)      # a.foo exec! => 3
+a.foo(1,2)      #             => 3
+a.foo(1,2,true) # a.foo exec! => 3
+a.foo(2,2)      # a.foo exec! => 4
+a.foo(2,2)      #             => 4
+a.instance_variable_get(:@_memoized_foo) # {[1,2] => 3, [2,2] => 4}
+```</p>
+
+<h2>rescue_from</h2>
+
+<p>``` ruby
+class A
+  include ActiveSupport::Rescuable
+  class FetchException &lt; RuntimeError; end
+  class StoreException &lt; RuntimeError; end</p>
+
+<p>  rescue_from FetchException do |e| @error = "取得失敗: #{e}" end
+  rescue_from StoreException do |e| @error = "保存失敗: #{e}" end</p>
+
+<p>  def fetch</p>
+
+<pre><code>raise FetchException if rand(2) == 0 
+</code></pre>
+
+<p>  end</p>
+
+<p>  def store</p>
+
+<pre><code>raise StoreException if rand(2) == 0 
+</code></pre>
+
+<p>  end</p>
+
+<p>  def execute</p>
+
+<pre><code>fetch
+store
+</code></pre>
+
+<p>  rescue Exception => error</p>
+
+<pre><code>rescue_with_handler(error) ? @error : raise
+</code></pre>
+
+<p>  end
+end</p>
+
+<p>class B &lt; A
+  class StoreException &lt; RuntimeError; end
+  rescue_from StoreException do |e| @error = "保存失敗: #{e}" end</p>
+
+<p>  def store</p>
+
+<pre><code>raise StoreException if rand(2) == 0 
+</code></pre>
+
+<p>  end<br/>
+end</p>
+
+<p>a = A.new
+a.execute # => たまに "取得失敗: A::FetchException"
+a.execute # => たまに "保存失敗: A::FetchException"
+b = B.new
+b.execute # => たまに "取得失敗: A::FetchException"
+b.execute # => たまに "保存失敗: B::FetchException"
+```</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[module]]></title>
+    <link href="http://7korobi.github.com/blog/2011/12/08/module/"/>
+    <updated>2011-12-08T17:16:00+09:00</updated>
+    <id>http://7korobi.github.com/blog/2011/12/08/module</id>
+    <content type="html"><![CDATA[<p>一列目
+``` ruby
+module A
+  def a
+  end
+  A = 1
+end</p>
+
+<p>class B
+  include A
+end</p>
+
+<p>class C
+  extend A
+end
+```</p>
+
+<p>二列目
+``` ruby
+module A
+  def a
+  end
+  A = 1
+  module_function :a
+end</p>
+
+<p>class B
+  include A
+end</p>
+
+<p>class C
+  extend A
+end
+```</p>
+
+<p>三列目
+``` ruby
+module A
+  def self.a
+  end
+  A = 1
+end</p>
+
+<p>class B
+  include A
+end</p>
+
+<p>class C
+  extend A
+end
+```</p>
+
+<p>|\2. 書いたソースコード    |<em>.一列目|</em>.二列目|<em>.三列目|
+|</em>.Aのモジュール関数       |<em>.A.a           |=.×|=.○|=.○|
+|</em>.Aの定数               |<em>.A::A           |=.○|=.○|=.○|
+|</em>.Bの特異メソッド(private)|<em>.B.send(:a)    |=.×|=.×|=.×|
+|</em>.Bの特異メソッド         |<em>.B.a           |=.×|=.×|=.×|
+|</em>.Bのメソッド(private)   |<em>.B.new.send(:a)|=.○|=.○|=.×|
+|</em>.Bのメソッド            |<em>.B.new.a       |=.○|=.×|=.×|
+|</em>.Bの定数               |<em>.B::A           |=.○|=.○|=.○|
+|</em>.Cの特異メソッド(private)|<em>.C.send(:a)    |=.○|=.○|=.×|
+|</em>.Cの特異メソッド         |<em>.C.a           |=.×|=.○|=.×|
+|</em>.Cのメソッド(private)   |<em>.C.new.send(:a)|=.×|=.○|=.×|
+|</em>.Cのメソッド            |<em>.C.new.a       |=.×|=.×|=.×|
+|</em>.Cの定数               |_.C::A           |=.×|=.×|=.×|</p>
+]]></content>
+  </entry>
+  
+</feed>

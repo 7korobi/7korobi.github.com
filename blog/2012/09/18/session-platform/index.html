@@ -1,0 +1,519 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>rubykaigi2012 プラットフォーム技術に関するセッション - 7korobi Blog</title>
+  <meta name="author" content="ななころび">
+
+  
+  <meta name="description" content="Ruby;Exported 動画 RubyやLinux対応を積極的に進めるマイクロソフトのオープンソース&lt;3(LOVE)戦略 動画 Squaleの裏側 SqualeというPAASの内部構造
+動画 Ruby Sinatra Rails publish &amp; deploy. &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://7korobi.github.com/blog/2012/09/18/session-platform">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="7korobi Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">7korobi Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:7korobi.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Rubykaigi2012 プラットフォーム技術に関するセッション</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-18T12:00:00+09:00" pubdate data-updated="true">2012年09月18日</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h1>Ruby;Exported</h1>
+
+<p><a href="http://www.ustream.tv/recorded/25418815">動画</a></p>
+
+<h1>RubyやLinux対応を積極的に進めるマイクロソフトのオープンソース&lt;3(LOVE)戦略</h1>
+
+<p><a href="http://www.ustream.tv/recorded/25394761">動画</a></p>
+
+<h1>Squaleの裏側</h1>
+
+<p>SqualeというPAASの内部構造
+<a href="http://www.ustream.tv/recorded/25395947">動画</a></p>
+
+<ul>
+<li>Ruby Sinatra Rails publish &amp; deploy.</li>
+<li>サーバーセットアップを忘れてコードに専念！</li>
+<li>ライトユーザーの敷居を下げるのが目標</li>
+</ul>
+
+
+<p>Amazon EC2 instance上にサーバー群を構成している。
+EC2 Instance を仮想コンテナで区切っている。
+(メモリを多く使うので、M2 large などを使う。）</p>
+
+<h2>構成</h2>
+
+<ul>
+<li>Nginx</li>
+<li>Unicorn</li>
+<li>SSHD</li>
+<li>Supervisord</li>
+<li>paperboy-sqale</li>
+</ul>
+
+
+<h2>Containers</h2>
+
+<ul>
+<li>made by LXC</li>
+<li>仮想環境で動く（Heroku Dynos と同じ）</li>
+<li>監視は、プロセスの動作しか見ていない（今後、port監視など強化したい。）</li>
+</ul>
+
+
+<h2>セキュリティ</h2>
+
+<ul>
+<li>tcp port bind を制限し、一般Userからは仕掛けられなくする。</li>
+<li>utp port はそのまま。</li>
+<li>linux kernel patch   1024 → 65535</li>
+</ul>
+
+
+<h2>WebProxy</h2>
+
+<p><a href="http://bit.ly/UHbHlb">技術情報</a></p>
+
+<ul>
+<li>redis 動作nginx のポート番号を管理</li>
+<li>nginx ドメイン名からポート番号を引き当てる</li>
+<li>location をコンテナの状況で分岐処理する。</li>
+</ul>
+
+
+<h2>failover.lua</h2>
+
+<ul>
+<li>コンテナ停止時、502が発生するので、フェイルオーバー処理に移る</li>
+<li>ダウンを検知したので、ダウンコンテナとして把握しておく</li>
+</ul>
+
+
+<h2>dynamic-proxy.lua</h2>
+
+<ul>
+<li>ダウンしたコンテナには接続を振らない</li>
+</ul>
+
+
+<h2>SSH Router</h2>
+
+<p><a href="http://github.com/mizzy/openssh-script-auth">技術情報</a></p>
+
+<ul>
+<li>git  -> Git Server</li>
+<li>sftp -> File Server</li>
+<li>ssh  -> Container</li>
+</ul>
+
+
+<p>このルーティングを実現する仕組み。</p>
+
+<ul>
+<li>AuthorizedKeysScript</li>
+<li>適切にサーバー名、パス情報を修正して実行</li>
+<li>鍵情報の実態はMySQLで管理</li>
+</ul>
+
+
+<h2>Deploy Servers</h2>
+
+<p><a href="http://bit.ly/NBbj9F">技術情報</a></p>
+
+<h1>Ruby + iOS = Super awesome!</h1>
+
+<p><a href="http://www.ustream.tv/recorded/25396312">動画</a></p>
+
+<h2>mruby</h2>
+
+<p>組み込み環境用ruby実装。</p>
+
+<h3>特徴</h3>
+
+<ul>
+<li>省メモリ</li>
+<li>省ストレージ</li>
+<li>非POSIX, only C99 → ブートローダーなどの立場で動作可能</li>
+<li>CRuby 拡張ライブラリと互換がない。（rubygems が使えない）</li>
+</ul>
+
+
+<h3>マイルストーン</h3>
+
+<ul>
+<li>fiber ゲーム業界が欲しい（イベントドリブン書きづらいので）</li>
+<li>デバッグについて
+
+<ul>
+<li>エミュレーターなど開発環境でだけは、リッチな情報が欲しい。</li>
+<li>mobirubyでは変数レポートなどしたい。</li>
+</ul>
+</li>
+<li>コミュニケーションは、githubのみ（ML用意しない）</li>
+<li>多様性（しかし）
+
+<ul>
+<li>JRuby Rubinius CRuby でもGemが使えるように、エクステンションの労力が少なくしようという流れの中にある。</li>
+<li>extension API では、mrubyの要求を満たさない。</li>
+<li>JRubyなどが extension互換性については頑張っていることと、CRubyが今後のメインストリームの位置にあればよい。</li>
+<li>mruby gemsを別に作る提案もある。フレームワークを決めて、extensionを一気にコンパイルしてくれる仕組み。</li>
+<li>が、今はまだ検討の段階にある。</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>MobiRuby</h2>
+
+<p>iPhoneアプリケーションをRubyで書く
+http://mobiruby.org/</p>
+
+<h3>目標</h3>
+
+<ul>
+<li>mruby(組み込みruby) を使ったruby開発。</li>
+<li>rubyの力をiOS/androidに提供する。</li>
+<li>最終的にはラッピングAPIの提供まで視野に入れる。</li>
+<li>ダイレクトAPIの提供を残し、必要なら細かい操作が可能にする。</li>
+</ul>
+
+
+<h3>来歴</h3>
+
+<ul>
+<li>2012/03   きっかけ</li>
+<li>2012/06   スタートアップ</li>
+<li>2012/09   MAC環境α（samegame）人によっては動作しないらしい？</li>
+</ul>
+
+
+<h3>現状</h3>
+
+<ul>
+<li>iOS と Ruby が大好き、という人専用（現状）</li>
+<li>128bit 整数（C long long）サポートがまだ</li>
+<li>デバッグ情報を出す機能がまだ</li>
+<li>appleの審査を通すため、eval、define_methodなどの動的機能はない。</li>
+<li>ObjC に機能がないため、特異メソッド定義ができない。</li>
+</ul>
+
+
+<h3>RoadMap</h3>
+
+<ul>
+<li>Fix BUG</li>
+<li>cocoa bridge 完了</li>
+<li>Documentation</li>
+<li>Packaging</li>
+</ul>
+
+
+<h3>構成</h3>
+
+<ul>
+<li>iOS
+
+<ul>
+<li>mruby
+
+<ul>
+<li>mruby-cfunc Cブリッジ
+
+<ul>
+<li>mruby-common</li>
+<li>mruby-cocoa Cocoaブリッジ</li>
+<li>mruby-ios iOS特化機能、iOSブートストラップ。将来はラッパライブラリ</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>mruby-common</h3>
+
+<ul>
+<li>iPhone、Android 共通機能</li>
+<li>POSIX、ランダムなど</li>
+</ul>
+
+
+<h3>mruby-cocoa Cocoaブリッジ</h3>
+
+<ul>
+<li>cocoaの動的支援（文字列リクエストでクラスのポインタを取得、など）を使っている。</li>
+<li>UIウィンドウからインスタンスを作ってVisibleにする。など</li>
+<li>ObjC-Class &lt; Ruby-Class &lt; ObjC-Class</li>
+<li>ruby からの呼び出時は、リフレクションする。
+
+<ul>
+<li>define で定義すると、ruby、objC 両方からコール可能な定義になる</li>
+<li>Class#_method で、rubyからobjCのメソッドを呼ぶ。</li>
+</ul>
+</li>
+<li>ObjC object と可換な Ruby object</li>
+<li>今バージョンはメモリリークがある。（リセット連打で落ちたりする）</li>
+<li>メモリ管理 ObjCメモリ管理を Swizzle して、実態はmrubyの管理にしている。
+
+<ul>
+<li>重い！全メモリアクセスをフックするため</li>
+</ul>
+</li>
+<li>マルチスレッド非対応。複数のVMを同アプリで起動し、スレッドのように扱うアイデアで検討中</li>
+</ul>
+
+
+<h3>mruby アプリケーション</h3>
+
+<ul>
+<li>app.rb
+
+<ul>
+<li>hello.rb</li>
+</ul>
+</li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">ななころび</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-18T12:00:00+09:00" pubdate data-updated="true">2012年09月18日</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/rails/'>rails</a>, <a class='category' href='/blog/categories/人狼議事-/'>人狼議事,</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://7korobi.github.com/blog/2012/09/18/session-platform/" data-via="7korobi" data-counturl="http://7korobi.github.com/blog/2012/09/18/session-platform/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/09/18/session-language/" title="Previous Post: rubykaigi2012 ruby言語に関するセッション">&laquo; rubykaigi2012 ruby言語に関するセッション</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/09/18/session-platform/">rubykaigi2012 プラットフォーム技術に関するセッション</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/18/session-language/">rubykaigi2012 ruby言語に関するセッション</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/26/trpg-on-giji/">TRPG on 人狼議事</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/26/rails2-remember/">rails2_remember</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/26/grant/">他PCからMySQLへ繋ぐ権限</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/7korobi">@7korobi</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: '7korobi',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("7korobi", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/7korobi" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @7korobi</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - ななころび -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

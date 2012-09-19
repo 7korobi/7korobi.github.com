@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: MongoDB | 7korobi Blog]]></title>
+  <link href="http://7korobi.github.com/blog/categories/mongodb/atom.xml" rel="self"/>
+  <link href="http://7korobi.github.com/"/>
+  <updated>2012-09-19T16:44:54+09:00</updated>
+  <id>http://7korobi.github.com/</id>
+  <author>
+    <name><![CDATA[ななころび]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[MongoDB,2012 ハードウェアサイズ]]></title>
+    <link href="http://7korobi.github.com/blog/2012/01/20/mongodb-2012-size/"/>
+    <updated>2012-01-20T16:05:00+09:00</updated>
+    <id>http://7korobi.github.com/blog/2012/01/20/mongodb-2012-size</id>
+    <content type="html"><![CDATA[<h3>Disk IO</h3>
+
+<p>ディスクの容量はあまり重要ではなく、IO速度を考えるべき。
+DDコマンドなどで、ディスクIOスピードを計測しておく。</p>
+
+<p><code>bash
+$ dd if=/dev/zero of=zero.dat bs=1 count=1000000
+1000000+0 records in
+1000000+0 records out
+1000000 bytes (1.0 MB) copied, 1.72607 seconds, 579 kB/s
+</code></p>
+
+<h3>メモリ量</h3>
+
+<p>ワーキングセットの大きさから計算する。
+ワーキングセットとは、ドキュメント取り扱い単位のこと。</p>
+
+<p>stat()コマンドでワーキングセットの平均オブジェクトサイズや、最大サイズといった情報がとれる。</p>
+
+<p>``` ruby</p>
+
+<blockquote><p>Model.send(:collection).stats
+MONGODB db['$cmd'].find({:collstats=>"models"}).limit(-1)
+{"ns"=>"db.models",
+ "size"=>128,
+ "avgObjSize"=>128.0,
+ ...
+}
+```</p></blockquote>
+
+<h2>計算式の例</h2>
+
+<p>ある会社での計算式の事例。</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th> CPU    </th>
+<th> Intel(R)Xeon(R) CPU X5650 2.67GHz <strong>1core</strong> </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td> Memory </td>
+<td> 4GB </td>
+</tr>
+<tr>
+<td></td>
+<td> Disk   </td>
+<td> 50GB iSCSI </td>
+</tr>
+<tr>
+<td></td>
+<td> OS     </td>
+<td> CentOS5.5 64bit </td>
+</tr>
+<tr>
+<td></td>
+<td> DBs    </td>
+<td> mongodb 1.8.0 </td>
+</tr>
+<tr>
+<td></td>
+<td>        </td>
+<td> - 5 Replica Set </td>
+</tr>
+<tr>
+<td></td>
+<td>        </td>
+<td> - 1 Arbiter </td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li><p>Query per Second 4500.</p></li>
+<li><p>GET : 4500×CPUs</p></li>
+</ul>
+
+
+<p>CPUごとに、まっすぐ線形に性能が伸びる様子。</p>
+
+<ul>
+<li>SET : 0.05×DDscore / Size</li>
+</ul>
+
+
+<p>ディスクIOの速度が直接影響する様子です。Replica Setのぶん、書き込み性能低下がある。</p>
+
+<h2>100GB パフォーマンステスト結果</h2>
+
+<p>およそ１００GBのデータ（2GBのチャンクが４８個）あるデータベースに対して、各操作のパフォーマンス計測。</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>                         </th>
+<th align="right">        sec </th>
+<th align="right">   hour  </th>
+<th align="right"> docs/sec</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td> Batch insert(1000 docs) </td>
+<td align="right"> <strong>17,906</strong> </td>
+<td align="right"> <strong>4.8</strong> </td>
+<td align="right"> <strong>3358</strong></td>
+</tr>
+<tr>
+<td></td>
+<td>                         </td>
+<td align="right">            </td>
+<td align="right">         </td>
+<td align="right"> </td>
+</tr>
+<tr>
+<td></td>
+<td> Ensure index(1000 docs) </td>
+<td align="right">  <strong>4,049</strong> </td>
+<td align="right"> <strong>1.1</strong> </td>
+<td align="right"> </td>
+</tr>
+<tr>
+<td></td>
+<td>  - primary              </td>
+<td align="right">      2,101 </td>
+<td align="right">     0.6 </td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>  - secondary            </td>
+<td align="right">      1,948 </td>
+<td align="right">     0.5 </td>
+<td align="right"> </td>
+</tr>
+<tr>
+<td></td>
+<td>                         </td>
+<td align="right">            </td>
+<td align="right">         </td>
+<td align="right"> </td>
+</tr>
+<tr>
+<td></td>
+<td> Add one Replica node    </td>
+<td align="right">  <strong>5,833</strong> </td>
+<td align="right"> <strong>1.6</strong> </td>
+<td align="right">  </td>
+</tr>
+<tr>
+<td></td>
+<td>  - Get files 2GB×48     </td>
+<td align="right">      2,120 </td>
+<td align="right">     0.6 </td>
+<td align="right">  </td>
+</tr>
+<tr>
+<td></td>
+<td>  - _id indexing         </td>
+<td align="right">      1,406 </td>
+<td align="right">     0.4 </td>
+<td align="right">  </td>
+</tr>
+<tr>
+<td></td>
+<td>  - uniq indexing        </td>
+<td align="right">      2,251 </td>
+<td align="right">     0.6 </td>
+<td align="right"> </td>
+</tr>
+<tr>
+<td></td>
+<td>  - ...etc               </td>
+<td align="right">         56 </td>
+<td align="right">     0.0 </td>
+<td align="right"> </td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>Sharding効果</h2>
+
+<p>MapReduceで、ShardKeyにヒットする検索メソッド実行と、全体スキャンの速度比較。</p>
+
+<ul>
+<li>およそ 8500倍の速度差。</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>                            </th>
+<th align="right">       sec </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td> map reduce by unique       </td>
+<td align="right">     0.368 </td>
+</tr>
+<tr>
+<td></td>
+<td> scan all data(39,092 keys) </td>
+<td align="right"> 3,116.000</td>
+</tr>
+</tbody>
+</table>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[MongoDB_2012 管理者から見た弱点と対策]]></title>
+    <link href="http://7korobi.github.com/blog/2012/01/20/mongodb-2012-attention-manage/"/>
+    <updated>2012-01-20T16:05:00+09:00</updated>
+    <id>http://7korobi.github.com/blog/2012/01/20/mongodb-2012-attention-manage</id>
+    <content type="html"><![CDATA[<h3>プライマリダウン発生時</h3>
+
+<h4>多数決原理</h4>
+
+<p>レプリケーションは、primaryを定める処理のため、ダウンするマシン側が少数派でなくてはならない。
+同時にダウンしてもよい台数を1台までとするなら、最低3台でレプリケーションすること。</p>
+
+<h4>Journal（受け付けた書き込み操作の記録）の取り扱い</h4>
+
+<p>プライマリDBのJournalがセカンダリに配布されるまでの間、情報をプライマリだけが保持している期間がある。</p>
+
+<h3>ディスク領域管理</h3>
+
+<h4>updateを繰り返すとディスクスペースが膨らむ。</h4>
+
+<p>updateによってドキュメントサイズが変化すると、情報の断片化によって未使用領域が増えていく。</p>
+
+<h4>ロックしてしまう操作</h4>
+
+<p>下のような操作は、データベースをロックして実行する。</p>
+
+<p>→量にもよるが、数時間、Read,Write不可能になる。</p>
+
+<ul>
+<li>インデックス（primaryはノンブロックだが、secondaryでロック）</li>
+<li>repair database</li>
+<li>データコンパクション</li>
+</ul>
+
+
+<h4>ロックせずにデータフラグメント対策をするには</h4>
+
+<p>下記の手順の紹介があった。</p>
+
+<ul>
+<li>replica setでMongoDBを運用</li>
+<li>新規nodeを追加し、データを同期する。</li>
+<li>（この新規ノードには、断片化していないデータが集まる。）</li>
+<li>stepdown() コマンド発行。プライマリを引き継ぐ。（このとき数秒間、書き込みロックが発生。）</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[MongoDB_2012 アプリから見た弱点と対策]]></title>
+    <link href="http://7korobi.github.com/blog/2012/01/20/mongodb-2012-attention-app/"/>
+    <updated>2012-01-20T16:05:00+09:00</updated>
+    <id>http://7korobi.github.com/blog/2012/01/20/mongodb-2012-attention-app</id>
+    <content type="html"><![CDATA[<h3>トランザクション的な書込操作</h3>
+
+<p>10gen社は、今後も含めそうした方向への投資をしない。
+<strong>ameba pico</strong>、<strong>アニマルランド</strong>の事例のように、トランザクションを求めない設計をしてゆくと共に、どうしても必要だが高いスケーラビリティを求めはしない、という部分については、RDBMSを併用するなどしてそれぞれの長所を活かすとよい。</p>
+
+<h3>non-block Write</h3>
+
+<p>データの書き込みが完了するまで待たずにデータベースがスレッドを開放し、次の操作を受け付ける機能。
+下記の点が指摘されている。</p>
+
+<ul>
+<li><p>プライマリDBへデータ送信が終わった後、Journalに入るまでのタイミングでDownした場合、情報が失われる。</p></li>
+<li><p>バッチwrite処理中、secondary stale. となる可能性
+　　プライマリDBが大量のwriteを処理しきれず、60secぶんのOPlogを使い果たすと発生する。</p></li>
+</ul>
+
+
+<p><a href="http://d.hatena.ne.jp/babie/searchdiary?word=safely">セーフモードで永続化を行う</a>と、これらの現象は発生しなくなる。</p>
+
+<h3>chunk migration中のカウント</h3>
+
+<p>chunk migration中に<a href="http://d.hatena.ne.jp/matsuou1/20110415/1302873577">count値がずれて表示される</a>現象。</p>
+
+<p>（mongoDB2.0 までには対策なし。）</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[MongoDB_2012 スキーマデザイン]]></title>
+    <link href="http://7korobi.github.com/blog/2012/01/20/mongodb-2012-schema-design/"/>
+    <updated>2012-01-20T16:02:00+09:00</updated>
+    <id>http://7korobi.github.com/blog/2012/01/20/mongodb-2012-schema-design</id>
+    <content type="html"><![CDATA[<h2>ドキュメント設計（テーブル設計）</h2>
+
+<p><a href="http://mongoid.org/docs/relations.html">Mongoid</a>を使いましょう。
+embeddedオブジェクトは高速ですが、引き換えに総浚い検索がやりづらくなります。
+用途の違いをわきまえて embeds / references を使い分けましょう。</p>
+
+<p>また、関連データ（別ドキュメントのIDを保管するフィールド）の整合を保つため、モデルを使ってアクセスしましょう。</p>
+
+<h3>参考</h3>
+
+<ul>
+<li><a href="http://d.hatena.ne.jp/babie/20100809/1281316974">リレーショナルな関連</a></li>
+<li><a href="http://d.hatena.ne.jp/masa_w/20101130/1291084939">スキーマ設計</a></li>
+<li><a href="http://d.hatena.ne.jp/babie/20100809/1281316971">Mongoid 詳解</a></li>
+</ul>
+
+
+<p>ここでは、上記リンク先の内容には触れず、セミナーで紹介されたちょっとしたtipsのみお伝えします。</p>
+
+<h3>他、こまかいテクニック</h3>
+
+<p>補助的なレコードを付与して、高速でスマートなQueryingを行うための工夫について</p>
+
+<ul>
+<li><p>Tree
+コメントにリプライが可能、などの、親子関係が継ぎ足されている構造です。
+rootまでの祖先を辿れるよう、配列に保管しましょう。（配列データを扱える強み）
+``` ruby
+field :ancestors, :type => Array</p>
+
+<h1>ancestors: [root_id, parent_id, self]</h1>
+
+<p>```</p></li>
+<li><p>更新の衝突
+複数のThreadが、それぞれ同一のデータをクエリして、更新操作を行ってしまうケースがあります。
+こうした問題を避けるため、タイムスタンプや番号でバージョンを把握し、異なるバージョンには保存しないようにしましょう。</p></li>
+</ul>
+
+
+<p>``` ruby</p>
+
+<blockquote><p>@model = Model.find('mongo_master')
+Model.where(</p>
+
+<pre><code>:_id =&gt; @model.id, :version =&gt; @model.version
+</code></pre>
+
+<p>  ).update(</p>
+
+<pre><code>:data =&gt; 'value',  :version =&gt; @model.version + 1
+</code></pre>
+
+<p>  )
+MONGODB db['models'].find({{"<em>id"=>"mongo_master"}).limit(-1)
+MONGODB db['models'].update(
+  {"</em>id"=>"mongo_master", "version"=>2},
+  {"$set"=>{:data=>"value", :version=>3}}
+e)
+=> 194
+```</p></blockquote>
+
+<p>また、もう一歩進めて、バージョン管理を導入するのもよいでしょう。
+<code>ruby
+  include Mongoid::Versioning
+</code></p>
+
+<h2>single table inheritance</h2>
+
+<p>異なるクラスの情報をひとつのテーブルに同居させることです。
+こんなモデルがあったとして。</p>
+
+<p><code>ruby
+class Shape
+class Circle &lt; Shape
+class Square &lt; Shape
+class Rect   &lt; Shape
+</code></p>
+
+<ul>
+<li><p>(RDBの場合)
+<code>
+|id|type   | area| radius| length| width|
+|--|-------|-----|-------|-------|------|
+| 1|circle | 3.14|      1| (null)|(null)|
+| 2|square |    4| (null)|      2|(null)|
+| 3|rect   |   10| (null)|      5|     2|
+</code></p></li>
+<li><p>MongoDB
+<code>javascript
+{_id:"1", type:"circle", area:3.14, radius:1}
+{_id:"2", type:"square", area:4, length:2}
+{_id:"3", type:"rect",   area:10, length:5, width:2}
+</code></p></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[formtastic]]></title>
+    <link href="http://7korobi.github.com/blog/2011/12/11/formtastic/"/>
+    <updated>2011-12-11T01:25:00+09:00</updated>
+    <id>http://7korobi.github.com/blog/2011/12/11/formtastic</id>
+    <content type="html"><![CDATA[<p>Formtasticというプラグインはなかなか便利です。
+モデルの変更にあわせて自動でフォームの項目を調節してくれる、inputsというメソッドが最高にありがたい。</p>
+
+<p>…ですが、これ、ActiveRecordには対応しているんですが、MongoDBだと動かないんですね。
+他の変更も含め、Gemに固めてやろうといろいろ模索していますが、とりあえず最低限なにが必要なのかを覚書き。</p>
+
+<p>``` ruby
+module Mongoid
+  module Document</p>
+
+<pre><code>def self.included(base)
+  def base.field(name, options = {})
+    super
+    記録を取る
+  end
+  def base.referenced_in(name, options = {})
+    super
+    記録を取る
+  end
+  def base.references_many(name, options = {})
+    super
+    記録を取る
+  end
+  def base.embedded_in(name, options = {})
+    super
+    記録を取る
+  end
+  def base.embeds_many(name, options = {})
+    super
+    記録を取る
+  end
+  def base.references_and_referenced_in_many(name, options = {})
+    super
+    記録を取る
+  end
+  base.class_eval do
+    def column_for_attribute(attribute_name)
+      なんとかする
+    end
+  end
+  def base.content_columns
+    なんとかする
+  end
+  def base.reflections
+    relations
+  end
+end
+</code></pre>
+
+<p>  end
+end</p>
+
+<p>module Formtastic
+  module Inputs</p>
+
+<pre><code>class ArrayInput
+  include Base
+  include Base::Stringish
+
+  def to_html
+    @object.each do |exp|
+      input_wrapping do
+        label_html &lt;&lt;
+        どうにかする
+      end
+  end
+end
+</code></pre>
+
+<p>  end
+end</p>
+
+<p>module Formtastic
+  module Helpers</p>
+
+<pre><code>module InputHelper
+  protected
+  def default_input_type(method, options = {})
+    大幅に書き換え。
+    ActiveRecordではありえないような、
+    Array型などの入力用フォームに対応する。
+  end
+end
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>けっこう長い！</p>
+
+<p>実際にはもちろん、メソッド定義の中身も必要です。</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: form | 7korobi Blog]]></title>
+  <link href="http://7korobi.github.com/blog/categories/form/atom.xml" rel="self"/>
+  <link href="http://7korobi.github.com/"/>
+  <updated>2012-09-19T16:44:54+09:00</updated>
+  <id>http://7korobi.github.com/</id>
+  <author>
+    <name><![CDATA[ななころび]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[formtastic]]></title>
+    <link href="http://7korobi.github.com/blog/2011/12/11/formtastic/"/>
+    <updated>2011-12-11T01:25:00+09:00</updated>
+    <id>http://7korobi.github.com/blog/2011/12/11/formtastic</id>
+    <content type="html"><![CDATA[<p>Formtasticというプラグインはなかなか便利です。
+モデルの変更にあわせて自動でフォームの項目を調節してくれる、inputsというメソッドが最高にありがたい。</p>
+
+<p>…ですが、これ、ActiveRecordには対応しているんですが、MongoDBだと動かないんですね。
+他の変更も含め、Gemに固めてやろうといろいろ模索していますが、とりあえず最低限なにが必要なのかを覚書き。</p>
+
+<p>``` ruby
+module Mongoid
+  module Document</p>
+
+<pre><code>def self.included(base)
+  def base.field(name, options = {})
+    super
+    記録を取る
+  end
+  def base.referenced_in(name, options = {})
+    super
+    記録を取る
+  end
+  def base.references_many(name, options = {})
+    super
+    記録を取る
+  end
+  def base.embedded_in(name, options = {})
+    super
+    記録を取る
+  end
+  def base.embeds_many(name, options = {})
+    super
+    記録を取る
+  end
+  def base.references_and_referenced_in_many(name, options = {})
+    super
+    記録を取る
+  end
+  base.class_eval do
+    def column_for_attribute(attribute_name)
+      なんとかする
+    end
+  end
+  def base.content_columns
+    なんとかする
+  end
+  def base.reflections
+    relations
+  end
+end
+</code></pre>
+
+<p>  end
+end</p>
+
+<p>module Formtastic
+  module Inputs</p>
+
+<pre><code>class ArrayInput
+  include Base
+  include Base::Stringish
+
+  def to_html
+    @object.each do |exp|
+      input_wrapping do
+        label_html &lt;&lt;
+        どうにかする
+      end
+  end
+end
+</code></pre>
+
+<p>  end
+end</p>
+
+<p>module Formtastic
+  module Helpers</p>
+
+<pre><code>module InputHelper
+  protected
+  def default_input_type(method, options = {})
+    大幅に書き換え。
+    ActiveRecordではありえないような、
+    Array型などの入力用フォームに対応する。
+  end
+end
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>けっこう長い！</p>
+
+<p>実際にはもちろん、メソッド定義の中身も必要です。</p>
+]]></content>
+  </entry>
+  
+</feed>

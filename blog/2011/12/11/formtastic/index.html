@@ -1,0 +1,417 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>formtastic - 7korobi Blog</title>
+  <meta name="author" content="ななころび">
+
+  
+  <meta name="description" content="Formtasticというプラグインはなかなか便利です。
+モデルの変更にあわせて自動でフォームの項目を調節してくれる、inputsというメソッドが最高にありがたい。 …ですが、これ、ActiveRecordには対応しているんですが、MongoDBだと動かないんですね。
+他の変更も含め、 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://7korobi.github.com/blog/2011/12/11/formtastic">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="7korobi Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">7korobi Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:7korobi.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Formtastic</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-11T01:25:00+09:00" pubdate data-updated="true">2011年12月11日</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Formtasticというプラグインはなかなか便利です。
+モデルの変更にあわせて自動でフォームの項目を調節してくれる、inputsというメソッドが最高にありがたい。</p>
+
+<p>…ですが、これ、ActiveRecordには対応しているんですが、MongoDBだと動かないんですね。
+他の変更も含め、Gemに固めてやろうといろいろ模索していますが、とりあえず最低限なにが必要なのかを覚書き。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">Mongoid</span>
+</span><span class='line'>  <span class="k">module</span> <span class="nn">Document</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">included</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">def</span> <span class="nc">base</span><span class="o">.</span><span class="nf">field</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
+</span><span class='line'>        <span class="k">super</span>
+</span><span class='line'>        <span class="err">記録を取る</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>      <span class="k">def</span> <span class="nc">base</span><span class="o">.</span><span class="nf">referenced_in</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
+</span><span class='line'>        <span class="k">super</span>
+</span><span class='line'>        <span class="err">記録を取る</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>      <span class="k">def</span> <span class="nc">base</span><span class="o">.</span><span class="nf">references_many</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
+</span><span class='line'>        <span class="k">super</span>
+</span><span class='line'>        <span class="err">記録を取る</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>      <span class="k">def</span> <span class="nc">base</span><span class="o">.</span><span class="nf">embedded_in</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
+</span><span class='line'>        <span class="k">super</span>
+</span><span class='line'>        <span class="err">記録を取る</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>      <span class="k">def</span> <span class="nc">base</span><span class="o">.</span><span class="nf">embeds_many</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
+</span><span class='line'>        <span class="k">super</span>
+</span><span class='line'>        <span class="err">記録を取る</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>      <span class="k">def</span> <span class="nc">base</span><span class="o">.</span><span class="nf">references_and_referenced_in_many</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
+</span><span class='line'>        <span class="k">super</span>
+</span><span class='line'>        <span class="err">記録を取る</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>      <span class="n">base</span><span class="o">.</span><span class="n">class_eval</span> <span class="k">do</span>
+</span><span class='line'>        <span class="k">def</span> <span class="nf">column_for_attribute</span><span class="p">(</span><span class="n">attribute_name</span><span class="p">)</span>
+</span><span class='line'>          <span class="err">なんとかする</span>
+</span><span class='line'>        <span class="k">end</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>      <span class="k">def</span> <span class="nc">base</span><span class="o">.</span><span class="nf">content_columns</span>
+</span><span class='line'>        <span class="err">なんとかする</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>      <span class="k">def</span> <span class="nc">base</span><span class="o">.</span><span class="nf">reflections</span>
+</span><span class='line'>        <span class="n">relations</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">module</span> <span class="nn">Formtastic</span>
+</span><span class='line'>  <span class="k">module</span> <span class="nn">Inputs</span>
+</span><span class='line'>    <span class="k">class</span> <span class="nc">ArrayInput</span>
+</span><span class='line'>      <span class="kp">include</span> <span class="no">Base</span>
+</span><span class='line'>      <span class="kp">include</span> <span class="no">Base</span><span class="o">::</span><span class="no">Stringish</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">def</span> <span class="nf">to_html</span>
+</span><span class='line'>        <span class="vi">@object</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">exp</span><span class="o">|</span>
+</span><span class='line'>          <span class="n">input_wrapping</span> <span class="k">do</span>
+</span><span class='line'>            <span class="n">label_html</span> <span class="o">&lt;&lt;</span>
+</span><span class='line'>            <span class="err">どうにかする</span>
+</span><span class='line'>          <span class="k">end</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">module</span> <span class="nn">Formtastic</span>
+</span><span class='line'>  <span class="k">module</span> <span class="nn">Helpers</span>
+</span><span class='line'>    <span class="k">module</span> <span class="nn">InputHelper</span>
+</span><span class='line'>      <span class="kp">protected</span>
+</span><span class='line'>      <span class="k">def</span> <span class="nf">default_input_type</span><span class="p">(</span><span class="nb">method</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
+</span><span class='line'>        <span class="err">大幅に書き換え。</span>
+</span><span class='line'>        <span class="no">ActiveRecord</span><span class="err">ではありえないような、</span>
+</span><span class='line'>        <span class="nb">Array</span><span class="err">型などの入力用フォームに対応する。</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>けっこう長い！</p>
+
+<p>実際にはもちろん、メソッド定義の中身も必要です。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">ななころび</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-11T01:25:00+09:00" pubdate data-updated="true">2011年12月11日</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/mongodb/'>MongoDB</a>, <a class='category' href='/blog/categories/form/'>form</a>, <a class='category' href='/blog/categories/rails/'>rails</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://7korobi.github.com/blog/2011/12/11/formtastic/" data-via="7korobi" data-counturl="http://7korobi.github.com/blog/2011/12/11/formtastic/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/12/08/module/" title="Previous Post: module">&laquo; module</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/12/15/sinatra/" title="next Post: sinatra">sinatra &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/09/18/session-platform/">rubykaigi2012 プラットフォーム技術に関するセッション</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/18/session-language/">rubykaigi2012 ruby言語に関するセッション</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/26/trpg-on-giji/">TRPG on 人狼議事</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/26/rails2-remember/">rails2_remember</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/26/grant/">他PCからMySQLへ繋ぐ権限</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/7korobi">@7korobi</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: '7korobi',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("7korobi", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/7korobi" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @7korobi</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - ななころび -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,496 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>MongoDB,2012 ハードウェアサイズ - 7korobi Blog</title>
+  <meta name="author" content="ななころび">
+
+  
+  <meta name="description" content="Disk IO ディスクの容量はあまり重要ではなく、IO速度を考えるべき。
+DDコマンドなどで、ディスクIOスピードを計測しておく。 1
+2
+3
+4
+$ dd if=/dev/zero of=zero.dat bs=1 count=1000000
+1000000+0 records in &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://7korobi.github.com/blog/2012/01/20/mongodb-2012-size">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="7korobi Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">7korobi Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:7korobi.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">MongoDB,2012 ハードウェアサイズ</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-20T16:05:00+09:00" pubdate data-updated="true">2012年01月20日</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>Disk IO</h3>
+
+<p>ディスクの容量はあまり重要ではなく、IO速度を考えるべき。
+DDコマンドなどで、ディスクIOスピードを計測しておく。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>zero.dat <span class="nv">bs</span><span class="o">=</span>1 <span class="nv">count</span><span class="o">=</span>1000000
+</span><span class='line'>1000000+0 records in
+</span><span class='line'>1000000+0 records out
+</span><span class='line'>1000000 bytes <span class="o">(</span>1.0 MB<span class="o">)</span> copied, 1.72607 seconds, 579 kB/s
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>メモリ量</h3>
+
+<p>ワーキングセットの大きさから計算する。
+ワーキングセットとは、ドキュメント取り扱い単位のこと。</p>
+
+<p>stat()コマンドでワーキングセットの平均オブジェクトサイズや、最大サイズといった情報がとれる。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&gt;</span> <span class="no">Model</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="ss">:collection</span><span class="p">)</span><span class="o">.</span><span class="n">stats</span>
+</span><span class='line'><span class="no">MONGODB</span> <span class="n">db</span><span class="o">[</span><span class="s1">&#39;$cmd&#39;</span><span class="o">].</span><span class="n">find</span><span class="p">({</span><span class="ss">:collstats</span><span class="o">=&gt;</span><span class="s2">&quot;models&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span><span class="s2">&quot;ns&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;db.models&quot;</span><span class="p">,</span>
+</span><span class='line'> <span class="s2">&quot;size&quot;</span><span class="o">=&gt;</span><span class="mi">128</span><span class="p">,</span>
+</span><span class='line'> <span class="s2">&quot;avgObjSize&quot;</span><span class="o">=&gt;</span><span class="mi">128</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
+</span><span class='line'> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>計算式の例</h2>
+
+<p>ある会社での計算式の事例。</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th> CPU    </th>
+<th> Intel(R)Xeon(R) CPU X5650 2.67GHz <strong>1core</strong> </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td> Memory </td>
+<td> 4GB </td>
+</tr>
+<tr>
+<td></td>
+<td> Disk   </td>
+<td> 50GB iSCSI </td>
+</tr>
+<tr>
+<td></td>
+<td> OS     </td>
+<td> CentOS5.5 64bit </td>
+</tr>
+<tr>
+<td></td>
+<td> DBs    </td>
+<td> mongodb 1.8.0 </td>
+</tr>
+<tr>
+<td></td>
+<td>        </td>
+<td> - 5 Replica Set </td>
+</tr>
+<tr>
+<td></td>
+<td>        </td>
+<td> - 1 Arbiter </td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li><p>Query per Second 4500.</p></li>
+<li><p>GET : 4500×CPUs</p></li>
+</ul>
+
+
+<p>CPUごとに、まっすぐ線形に性能が伸びる様子。</p>
+
+<ul>
+<li>SET : 0.05×DDscore / Size</li>
+</ul>
+
+
+<p>ディスクIOの速度が直接影響する様子です。Replica Setのぶん、書き込み性能低下がある。</p>
+
+<h2>100GB パフォーマンステスト結果</h2>
+
+<p>およそ１００GBのデータ（2GBのチャンクが４８個）あるデータベースに対して、各操作のパフォーマンス計測。</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>                         </th>
+<th align="right">        sec </th>
+<th align="right">   hour  </th>
+<th align="right"> docs/sec</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td> Batch insert(1000 docs) </td>
+<td align="right"> <strong>17,906</strong> </td>
+<td align="right"> <strong>4.8</strong> </td>
+<td align="right"> <strong>3358</strong></td>
+</tr>
+<tr>
+<td></td>
+<td>                         </td>
+<td align="right">            </td>
+<td align="right">         </td>
+<td align="right"> </td>
+</tr>
+<tr>
+<td></td>
+<td> Ensure index(1000 docs) </td>
+<td align="right">  <strong>4,049</strong> </td>
+<td align="right"> <strong>1.1</strong> </td>
+<td align="right"> </td>
+</tr>
+<tr>
+<td></td>
+<td>  - primary              </td>
+<td align="right">      2,101 </td>
+<td align="right">     0.6 </td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>  - secondary            </td>
+<td align="right">      1,948 </td>
+<td align="right">     0.5 </td>
+<td align="right"> </td>
+</tr>
+<tr>
+<td></td>
+<td>                         </td>
+<td align="right">            </td>
+<td align="right">         </td>
+<td align="right"> </td>
+</tr>
+<tr>
+<td></td>
+<td> Add one Replica node    </td>
+<td align="right">  <strong>5,833</strong> </td>
+<td align="right"> <strong>1.6</strong> </td>
+<td align="right">  </td>
+</tr>
+<tr>
+<td></td>
+<td>  - Get files 2GB×48     </td>
+<td align="right">      2,120 </td>
+<td align="right">     0.6 </td>
+<td align="right">  </td>
+</tr>
+<tr>
+<td></td>
+<td>  - _id indexing         </td>
+<td align="right">      1,406 </td>
+<td align="right">     0.4 </td>
+<td align="right">  </td>
+</tr>
+<tr>
+<td></td>
+<td>  - uniq indexing        </td>
+<td align="right">      2,251 </td>
+<td align="right">     0.6 </td>
+<td align="right"> </td>
+</tr>
+<tr>
+<td></td>
+<td>  - &#8230;etc               </td>
+<td align="right">         56 </td>
+<td align="right">     0.0 </td>
+<td align="right"> </td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>Sharding効果</h2>
+
+<p>MapReduceで、ShardKeyにヒットする検索メソッド実行と、全体スキャンの速度比較。</p>
+
+<ul>
+<li>およそ 8500倍の速度差。</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>                            </th>
+<th align="right">       sec </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td> map reduce by unique       </td>
+<td align="right">     0.368 </td>
+</tr>
+<tr>
+<td></td>
+<td> scan all data(39,092 keys) </td>
+<td align="right"> 3,116.000</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">ななころび</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-20T16:05:00+09:00" pubdate data-updated="true">2012年01月20日</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/mongodb/'>MongoDB</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://7korobi.github.com/blog/2012/01/20/mongodb-2012-size/" data-via="7korobi" data-counturl="http://7korobi.github.com/blog/2012/01/20/mongodb-2012-size/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/01/20/mongodb-2012-attention-manage/" title="Previous Post: MongoDB_2012 管理者から見た弱点と対策">&laquo; MongoDB_2012 管理者から見た弱点と対策</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/01/26/grant/" title="next Post: 他PCからMySQLへ繋ぐ権限">他PCからMySQLへ繋ぐ権限 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/09/18/session-platform/">rubykaigi2012 プラットフォーム技術に関するセッション</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/18/session-language/">rubykaigi2012 ruby言語に関するセッション</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/26/trpg-on-giji/">TRPG on 人狼議事</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/26/rails2-remember/">rails2_remember</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/26/grant/">他PCからMySQLへ繋ぐ権限</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/7korobi">@7korobi</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: '7korobi',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("7korobi", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/7korobi" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @7korobi</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - ななころび -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: fail | 7korobi Blog]]></title>
+  <link href="http://7korobi.github.com/blog/categories/fail/atom.xml" rel="self"/>
+  <link href="http://7korobi.github.com/"/>
+  <updated>2012-09-19T16:44:54+09:00</updated>
+  <id>http://7korobi.github.com/</id>
+  <author>
+    <name><![CDATA[ななころび]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[MongoDB Update 治った]]></title>
+    <link href="http://7korobi.github.com/blog/2011/12/07/mongodb-update/"/>
+    <updated>2011-12-07T20:12:00+09:00</updated>
+    <id>http://7korobi.github.com/blog/2011/12/07/mongodb-update</id>
+    <content type="html"><![CDATA[<p>治りました。
+MongoDBでは、データ構造がおかしい場合、アップデートを受け付けなくなることがあるようです。</p>
+
+<p>状況のおさらい
+- update.$push しても要素が変化しない。
+``` ruby
+MONGODB giji['chr_sets'].find({:<em>id=>"sf"}).limit(-1)
+=> {"</em>id"=>"sf", "chr_jobs"=>[...10 elements...], ...}</p>
+
+<p>MONGODB giji['chr_sets'].update({"<em>id"=>"sf"}, {"$push"=>{"chr_jobs"=>{"job"=>"test", "face_id"=>"test", "</em>id"=>"test"}}})
+MONGODB giji['chr_sets'].update({:<em>id=>"sf"}, {"$push"=>{"chr_jobs"=>{"job"=>"test", "face_id"=>"test", "</em>id"=>"test"}}})</p>
+
+<p>MONGODB giji['chr_sets'].find({:<em>id=>"sf"}).limit(-1).sort([[:chr_set_id, :asc]])
+=> {"</em>id"=>"sf", "chr_jobs"=>[...10 elements...], ...}
+```</p>
+
+<p>このときのデータ構造が問題でした。こんなのだったんですが（見やすくするため、yaml形式にしています。）</p>
+
+<h2>``` yml</h2>
+
+<p>'':
+  csid: sf_sf10
+_id: sf
+admin: 黒体放射のエヴェレット解釈
+chr_set_id: sf
+maker: 重ね合せ猫のユニタリ変換</p>
+
+<p>chr_jobs:
+- face_id: sf01
+  job: 通信士
+  _id: sf01
+...(9 items)</p>
+
+<p>chr_npcs:
+- caption: 明後日への道標
+  face_id: sf04
+  npc:
+  - ! 'とたたたたんっ。<br><br><b>めざましい速さで木の洞に駆け込むと、じっと潜んだ暗闇に瞳がふたつ。<br>いちど大好きな閉所に収まると、そうかんたんに出てはこないのだ。</b> '
+  - ! 'ちゅー！<br><br>　ちゅー！<br><br><b>がりがり、がりがり。ケージの縁をひっかくと、うろうろ、うろうろ右へ左へ駆け回る。木の洞に目もくれず、夜中じゅう走り続けるのだった……</b> '
+  _id: sf04
+  csid: sf</p>
+
+<ul>
+<li>caption: 明後日への道標（ナユタ）
+face_id: sf10
+npc:
+
+<ul>
+<li>! 'とたたたたんっ。<br><br><b>めざましい速さで木の洞に駆け込むと、じっと潜んだ暗闇に瞳がふたつ。<br>いちど大好きな閉所に収まると、そうかんたんに出てはこないのだ。</b> '</li>
+<li>! 'ちゅー！<br><br>　ちゅー！<br><br><b>がりがり、がりがり。ケージの縁をひっかくと、うろうろ、うろうろ右へ左へ駆け回る。木の洞に目もくれず、夜中じゅう走り続けるのだった……</b> '
+_id: sf10
+```</li>
+</ul>
+</li>
+</ul>
+
+
+<p>これを、こうする。
+``` yml
+_id: sf
+admin: 黒体放射のエヴェレット解釈
+chr_set_id: sf
+maker: 重ね合せ猫のユニタリ変換</p>
+
+<p>chr_jobs:
+...(後略)
+```</p>
+
+<p>再度、試してみると…
+``` ruby
+irb(main):063:0> ChrSet.find('sf').chr_jobs &lt;&lt; ChrJob.new(job:'test', face_id:'test')
+MONGODB giji['chr_sets'].find({:<em>id=>"sf"}).limit(-1).sort([[:chr_set_id, :asc]])
+MONGODB giji['chr_sets'].update({"</em>id"=>"sf"}, {"$pushAll"=>{"chr_jobs"=>[{"job"=>"test", "face_id"=>"test", "_id"=>"test"}]}})</p>
+
+<p>MONGODB giji['chr_sets'].find({:_id=>"sf"}).limit(-1).sort([[:chr_set_id, :asc]])
+=> [...10 elements..., #<ChrJob _id: test, _type: nil, job: "test", face_id: "test">]
+```</p>
+
+<p>増えた！</p>
+
+<p>``` ruby
+irb(main):076:0> ChrSet.find('sf').chr_jobs.pop.delete
+MONGODB giji['chr_sets'].find({:<em>id=>"sf"}).limit(-1).sort([[:chr_set_id, :asc]])
+MONGODB giji['chr_sets'].update({"</em>id"=>"sf"}, {"$pull"=>{"chr_jobs"=>{"_id"=>"test"}}})</p>
+
+<p>MONGODB giji['chr_sets'].find({:_id=>"sf"}).limit(-1).sort([[:chr_set_id, :asc]])
+=> [...10 elements...]
+```</p>
+
+<p>消せた！</p>
+
+<p>と、いう顛末のようでした。キーに空文字を含むようなドキュメントが、この現象を引き起こしていたようです。</p>
+
+<p>せっせと修正…。ドキュメントを削除して、修正版を挿入しなおすドキドキ作業。
+<code>ruby
+ChrSet.all.each {|o| o.attributes.delete(''); o.delete; ChrSet.new(o.attributes).save; p o}  
+</code></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[MongoDB update 失敗]]></title>
+    <link href="http://7korobi.github.com/blog/2011/12/05/mongodb-update/"/>
+    <updated>2011-12-05T22:00:00+09:00</updated>
+    <id>http://7korobi.github.com/blog/2011/12/05/mongodb-update</id>
+    <content type="html"><![CDATA[<p>Ruby on Rails3を楽しく使っていたんだけれど・・・。</p>
+
+<p>Mongoidから、embeddedオブジェクトを追加すると、いっけん動作しているように見えてデータベースに格納されない。</p>
+
+<p><code>ruby
+ChrSet.find('animal').chr_jobs &lt;&lt; ChrJob.new(job:'z',face_id:'z')
+MONGODB giji['chr_sets'].find({:_id=&gt;"animal"}).limit(-1).sort([[:chr_set_id, :asc]])
+MONGODB giji['chr_sets'].update({"_id"=&gt;"animal"}, {"$pushAll"=&gt;{"chr_jobs"=&gt;[{"job"=&gt;"z", "face_id"=&gt;"z", "_id"=&gt;"z"}]}})
+=&gt; [#&lt;ChrJob _id: z, _type: nil, job: "z", face_id: "z"&gt;]
+</code>
+こんなふうに、MongoDB上はupdate.$pushAllという扱いをしているみたいなのだけれどなあ。</p>
+
+<p>苦肉の策でオブジェクトを２つつくり、片方を削除、もう片方を更新してから保存すると、保存される。
+<code>ruby
+MONGODB giji['chr_sets'].insert([{""=&gt;{"csid"=&gt;"animal"}, "admin"=&gt;"大地の震動", "chr_jobs"=&gt;[...], "chr_npcs"=&gt;[...], "chr_set_id"=&gt;"animal", "maker"=&gt;"草原のざわめき", "_id"=&gt;"animal"}])
+</code></p>
+
+<p>つまり、insertはできるが、updateはできない。</p>
+
+<p>そういう症状になっていることになるんだけれど・・・なんでだ？
+謎が解けない</p>
+]]></content>
+  </entry>
+  
+</feed>

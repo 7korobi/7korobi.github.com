@@ -1,0 +1,293 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>MongoDB update 失敗 - 7korobi Blog</title>
+  <meta name="author" content="ななころび">
+
+  
+  <meta name="description" content="Ruby on Rails3を楽しく使っていたんだけれど・・・。 Mongoidから、embeddedオブジェクトを追加すると、いっけん動作しているように見えてデータベースに格納されない。 1
+2
+3
+4
+ChrSet.find(&#39;animal&#39;).chr_jobs &lt;&lt &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://7korobi.github.com/blog/2011/12/05/mongodb-update">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="7korobi Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">7korobi Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:7korobi.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">MongoDB Update 失敗</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-05T22:00:00+09:00" pubdate data-updated="true">2011年12月05日</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Ruby on Rails3を楽しく使っていたんだけれど・・・。</p>
+
+<p>Mongoidから、embeddedオブジェクトを追加すると、いっけん動作しているように見えてデータベースに格納されない。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">ChrSet</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;animal&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">chr_jobs</span> <span class="o">&lt;&lt;</span> <span class="no">ChrJob</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">job</span><span class="ss">:&#39;z&#39;</span><span class="p">,</span><span class="n">face_id</span><span class="ss">:&#39;z&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="no">MONGODB</span> <span class="n">giji</span><span class="o">[</span><span class="s1">&#39;chr_sets&#39;</span><span class="o">].</span><span class="n">find</span><span class="p">({</span><span class="ss">:_id</span><span class="o">=&gt;</span><span class="s2">&quot;animal&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="o">[[</span><span class="ss">:chr_set_id</span><span class="p">,</span> <span class="ss">:asc</span><span class="o">]]</span><span class="p">)</span>
+</span><span class='line'><span class="no">MONGODB</span> <span class="n">giji</span><span class="o">[</span><span class="s1">&#39;chr_sets&#39;</span><span class="o">].</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;_id&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;animal&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;$pushAll&quot;</span><span class="o">=&gt;</span><span class="p">{</span><span class="s2">&quot;chr_jobs&quot;</span><span class="o">=&gt;[</span><span class="p">{</span><span class="s2">&quot;job&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="s2">&quot;face_id&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="s2">&quot;_id&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;z&quot;</span><span class="p">}</span><span class="o">]</span><span class="p">}})</span>
+</span><span class='line'><span class="o">=&gt;</span> <span class="o">[</span><span class="c1">#&lt;ChrJob _id: z, _type: nil, job: &quot;z&quot;, face_id: &quot;z&quot;&gt;]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>こんなふうに、MongoDB上はupdate.$pushAllという扱いをしているみたいなのだけれどなあ。</p>
+
+<p>苦肉の策でオブジェクトを２つつくり、片方を削除、もう片方を更新してから保存すると、保存される。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">MONGODB</span> <span class="n">giji</span><span class="o">[</span><span class="s1">&#39;chr_sets&#39;</span><span class="o">].</span><span class="n">insert</span><span class="p">(</span><span class="o">[</span><span class="p">{</span><span class="s2">&quot;&quot;</span><span class="o">=&gt;</span><span class="p">{</span><span class="s2">&quot;csid&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;animal&quot;</span><span class="p">},</span> <span class="s2">&quot;admin&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;大地の震動&quot;</span><span class="p">,</span> <span class="s2">&quot;chr_jobs&quot;</span><span class="o">=&gt;[.</span><span class="n">.</span><span class="o">.]</span><span class="p">,</span> <span class="s2">&quot;chr_npcs&quot;</span><span class="o">=&gt;[.</span><span class="n">.</span><span class="o">.]</span><span class="p">,</span> <span class="s2">&quot;chr_set_id&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;animal&quot;</span><span class="p">,</span> <span class="s2">&quot;maker&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;草原のざわめき&quot;</span><span class="p">,</span> <span class="s2">&quot;_id&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;animal&quot;</span><span class="p">}</span><span class="o">]</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>つまり、insertはできるが、updateはできない。</p>
+
+<p>そういう症状になっていることになるんだけれど・・・なんでだ？
+謎が解けない</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">ななころび</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-05T22:00:00+09:00" pubdate data-updated="true">2011年12月05日</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/mongodb/'>MongoDB</a>, <a class='category' href='/blog/categories/fail/'>fail</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://7korobi.github.com/blog/2011/12/05/mongodb-update/" data-via="7korobi" data-counturl="http://7korobi.github.com/blog/2011/12/05/mongodb-update/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/12/04/new-blog/" title="Previous Post: New Blog">&laquo; New Blog</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/12/07/mongodb-update/" title="next Post: MongoDB Update 治った">MongoDB Update 治った &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/09/18/session-platform/">rubykaigi2012 プラットフォーム技術に関するセッション</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/18/session-language/">rubykaigi2012 ruby言語に関するセッション</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/26/trpg-on-giji/">TRPG on 人狼議事</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/26/rails2-remember/">rails2_remember</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/26/grant/">他PCからMySQLへ繋ぐ権限</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/7korobi">@7korobi</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: '7korobi',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("7korobi", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/7korobi" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @7korobi</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - ななころび -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

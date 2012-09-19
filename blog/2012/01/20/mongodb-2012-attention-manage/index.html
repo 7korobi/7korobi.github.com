@@ -1,0 +1,303 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>MongoDB_2012 管理者から見た弱点と対策 - 7korobi Blog</title>
+  <meta name="author" content="ななころび">
+
+  
+  <meta name="description" content="プライマリダウン発生時 多数決原理 レプリケーションは、primaryを定める処理のため、ダウンするマシン側が少数派でなくてはならない。
+同時にダウンしてもよい台数を1台までとするなら、最低3台でレプリケーションすること。 Journal（受け付けた書き込み操作の記録）の取り扱い &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://7korobi.github.com/blog/2012/01/20/mongodb-2012-attention-manage">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="7korobi Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">7korobi Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:7korobi.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">MongoDB_2012 管理者から見た弱点と対策</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-20T16:05:00+09:00" pubdate data-updated="true">2012年01月20日</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>プライマリダウン発生時</h3>
+
+<h4>多数決原理</h4>
+
+<p>レプリケーションは、primaryを定める処理のため、ダウンするマシン側が少数派でなくてはならない。
+同時にダウンしてもよい台数を1台までとするなら、最低3台でレプリケーションすること。</p>
+
+<h4>Journal（受け付けた書き込み操作の記録）の取り扱い</h4>
+
+<p>プライマリDBのJournalがセカンダリに配布されるまでの間、情報をプライマリだけが保持している期間がある。</p>
+
+<h3>ディスク領域管理</h3>
+
+<h4>updateを繰り返すとディスクスペースが膨らむ。</h4>
+
+<p>updateによってドキュメントサイズが変化すると、情報の断片化によって未使用領域が増えていく。</p>
+
+<h4>ロックしてしまう操作</h4>
+
+<p>下のような操作は、データベースをロックして実行する。</p>
+
+<p>→量にもよるが、数時間、Read,Write不可能になる。</p>
+
+<ul>
+<li>インデックス（primaryはノンブロックだが、secondaryでロック）</li>
+<li>repair database</li>
+<li>データコンパクション</li>
+</ul>
+
+
+<h4>ロックせずにデータフラグメント対策をするには</h4>
+
+<p>下記の手順の紹介があった。</p>
+
+<ul>
+<li>replica setでMongoDBを運用</li>
+<li>新規nodeを追加し、データを同期する。</li>
+<li>（この新規ノードには、断片化していないデータが集まる。）</li>
+<li>stepdown() コマンド発行。プライマリを引き継ぐ。（このとき数秒間、書き込みロックが発生。）</li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">ななころび</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-20T16:05:00+09:00" pubdate data-updated="true">2012年01月20日</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/mongodb/'>MongoDB</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://7korobi.github.com/blog/2012/01/20/mongodb-2012-attention-manage/" data-via="7korobi" data-counturl="http://7korobi.github.com/blog/2012/01/20/mongodb-2012-attention-manage/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/01/20/mongodb-2012-attention-app/" title="Previous Post: MongoDB_2012 アプリから見た弱点と対策">&laquo; MongoDB_2012 アプリから見た弱点と対策</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/01/20/mongodb-2012-size/" title="next Post: MongoDB,2012 ハードウェアサイズ">MongoDB,2012 ハードウェアサイズ &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/09/18/session-platform/">rubykaigi2012 プラットフォーム技術に関するセッション</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/18/session-language/">rubykaigi2012 ruby言語に関するセッション</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/26/trpg-on-giji/">TRPG on 人狼議事</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/26/rails2-remember/">rails2_remember</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/26/grant/">他PCからMySQLへ繋ぐ権限</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/7korobi">@7korobi</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: '7korobi',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("7korobi", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/7korobi" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @7korobi</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - ななころび -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
