@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: MongoDB - 7korobi Blog</title>
+  <title>rubykaigi2012 Ruby on Rails 関連セッション - 7korobi Blog</title>
   <meta name="author" content="ななころび">
 
   
-  <meta name="description" content="Category: MongoDB">
+  <meta name="description" content="札幌rubykaigi2012 Rails3 レシピブック外伝 動画 RubyやLinux対応を積極的に進めるマイクロソフトのオープンソース&lt;3(LOVE)戦略 動画 Windows 64bit用に、artonさん作のプラットフォーム「能楽堂」の紹介がある。イチから作り、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://7korobi.github.comblog/categories/mongodb">
+  <link rel="canonical" href="http://7korobi.github.com/blog/2012/09/18/session-ruby-on-rails">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -61,122 +61,189 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: MongoDB</h1>
+    
+      <h1 class="entry-title">Rubykaigi2012 Ruby on Rails 関連セッション</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-18T12:00:00+09:00" pubdate data-updated="true">2012年09月18日</time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p><a href="https://github.com/sprk2012/sprk2012-cfp">札幌rubykaigi2012</a></p>
 
-  
-  <h2>2012</h2>
+<h1>Rails3 レシピブック外伝</h1>
 
-<article>
-  
-<h1><a href="/blog/2012/01/20/mongodb-2012-size/">MongoDB,2012 ハードウェアサイズ</a></h1>
-<time datetime="2012-01-20T16:05:00+09:00" pubdate><span class='month'>Jan</span> <span class='day'>20</span> <span class='year'>2012</span></time>
+<p><a href="http://www.ustream.tv/recorded/25419544">動画</a></p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/mongodb/'>MongoDB</a></span>
-</footer>
+<h1>RubyやLinux対応を積極的に進めるマイクロソフトのオープンソース&lt;3(LOVE)戦略</h1>
 
+<p><a href="http://www.ustream.tv/recorded/25394761">動画</a></p>
 
-</article>
+<p>Windows 64bit用に、artonさん作のプラットフォーム「能楽堂」の紹介がある。イチから作り、IISとオサラバしたとのこと。</p>
 
+<h1>Squaleの裏側</h1>
 
+<p>SqualeというPAASの内部構造
+<a href="http://www.ustream.tv/recorded/25395947">動画</a></p>
 
-<article>
-  
-<h1><a href="/blog/2012/01/20/mongodb-2012-attention-manage/">MongoDB_2012 管理者から見た弱点と対策</a></h1>
-<time datetime="2012-01-20T16:05:00+09:00" pubdate><span class='month'>Jan</span> <span class='day'>20</span> <span class='year'>2012</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/mongodb/'>MongoDB</a></span>
-</footer>
+<ul>
+<li>Ruby Sinatra Rails publish &amp; deploy.</li>
+<li>サーバーセットアップを忘れてコードに専念！</li>
+<li>ライトユーザーの敷居を下げるのが目標</li>
+</ul>
 
 
-</article>
+<p>Amazon EC2 instance上にサーバー群を構成している。
+EC2 Instance を仮想コンテナで区切っている。
+(メモリを多く使うので、M2 large などを使う。）</p>
+
+<h2>構成</h2>
+
+<ul>
+<li>Nginx</li>
+<li>Unicorn</li>
+<li>SSHD</li>
+<li>Supervisord</li>
+<li>paperboy-sqale</li>
+</ul>
 
 
+<h2>Containers</h2>
 
-<article>
-  
-<h1><a href="/blog/2012/01/20/mongodb-2012-attention-app/">MongoDB_2012 アプリから見た弱点と対策</a></h1>
-<time datetime="2012-01-20T16:05:00+09:00" pubdate><span class='month'>Jan</span> <span class='day'>20</span> <span class='year'>2012</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/mongodb/'>MongoDB</a></span>
-</footer>
+<ul>
+<li>made by LXC</li>
+<li>仮想環境で動く（Heroku Dynos と同じ）</li>
+<li>監視は、プロセスの動作しか見ていない（今後、port監視など強化したい。）</li>
+</ul>
 
 
-</article>
+<h2>セキュリティ</h2>
+
+<ul>
+<li>tcp port bind を制限し、一般Userからは仕掛けられなくする。</li>
+<li>utp port はそのまま。</li>
+<li>linux kernel patch   1024 → 65535</li>
+</ul>
 
 
+<h2>WebProxy</h2>
 
-<article>
-  
-<h1><a href="/blog/2012/01/20/mongodb-2012-schema-design/">MongoDB_2012 スキーマデザイン</a></h1>
-<time datetime="2012-01-20T16:02:00+09:00" pubdate><span class='month'>Jan</span> <span class='day'>20</span> <span class='year'>2012</span></time>
+<p><a href="http://bit.ly/UHbHlb">技術情報</a></p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/mongodb/'>MongoDB</a></span>
-</footer>
-
-
-</article>
+<ul>
+<li>redis 動作nginx のポート番号を管理</li>
+<li>nginx ドメイン名からポート番号を引き当てる</li>
+<li>location をコンテナの状況で分岐処理する。</li>
+</ul>
 
 
+<h2>failover.lua</h2>
 
-  
-  <h2>2011</h2>
-
-<article>
-  
-<h1><a href="/blog/2011/12/11/formtastic/">formtastic</a></h1>
-<time datetime="2011-12-11T01:25:00+09:00" pubdate><span class='month'>Dec</span> <span class='day'>11</span> <span class='year'>2011</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/mongodb/'>MongoDB</a>, <a class='category' href='/blog/categories/form/'>form</a>, <a class='category' href='/blog/categories/rails/'>rails</a></span>
-</footer>
+<ul>
+<li>コンテナ停止時、502が発生するので、フェイルオーバー処理に移る</li>
+<li>ダウンを検知したので、ダウンコンテナとして把握しておく</li>
+</ul>
 
 
-</article>
+<h2>dynamic-proxy.lua</h2>
+
+<ul>
+<li>ダウンしたコンテナには接続を振らない</li>
+</ul>
 
 
+<h2>SSH Router</h2>
 
-<article>
-  
-<h1><a href="/blog/2011/12/07/mongodb-update/">MongoDB Update 治った</a></h1>
-<time datetime="2011-12-07T20:12:00+09:00" pubdate><span class='month'>Dec</span> <span class='day'>07</span> <span class='year'>2011</span></time>
+<p><a href="http://github.com/mizzy/openssh-script-auth">技術情報</a></p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/mongodb/'>MongoDB</a>, <a class='category' href='/blog/categories/fail/'>fail</a></span>
-</footer>
-
-
-</article>
+<ul>
+<li>git  -> Git Server</li>
+<li>sftp -> File Server</li>
+<li>ssh  -> Container</li>
+</ul>
 
 
+<p>このルーティングを実現する仕組み。</p>
 
-<article>
-  
-<h1><a href="/blog/2011/12/05/mongodb-update/">MongoDB update 失敗</a></h1>
-<time datetime="2011-12-05T22:00:00+09:00" pubdate><span class='month'>Dec</span> <span class='day'>05</span> <span class='year'>2011</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/mongodb/'>MongoDB</a>, <a class='category' href='/blog/categories/fail/'>fail</a></span>
-</footer>
+<ul>
+<li>AuthorizedKeysScript</li>
+<li>適切にサーバー名、パス情報を修正して実行</li>
+<li>鍵情報の実態はMySQLで管理</li>
+</ul>
 
 
-</article>
+<h2>Deploy Servers</h2>
 
+<p><a href="http://bit.ly/NBbj9F">技術情報</a></p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">ななころび</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-18T12:00:00+09:00" pubdate data-updated="true">2012年09月18日</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/rails/'>rails</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://7korobi.github.com/blog/2012/09/18/session-ruby-on-rails/" data-via="7korobi" data-counturl="http://7korobi.github.com/blog/2012/09/18/session-ruby-on-rails/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/09/18/session-platform/" title="Previous Post: rubykaigi2012 プラットフォーム技術に関するセッション">&laquo; rubykaigi2012 プラットフォーム技術に関するセッション</a>
+      
+      
+    </p>
+  </footer>
 </article>
 
 </div>

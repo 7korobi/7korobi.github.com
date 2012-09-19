@@ -9,8 +9,10 @@
   <meta name="author" content="ななころび">
 
   
-  <meta name="description" content="Ruby;Exported 動画 RubyやLinux対応を積極的に進めるマイクロソフトのオープンソース&lt;3(LOVE)戦略 動画 Squaleの裏側 SqualeというPAASの内部構造
-動画 Ruby Sinatra Rails publish &amp; deploy. &hellip;">
+  <meta name="description" content="札幌rubykaigi2012 Ruby;Exported 動画 Ruby + iOS = Super awesome! 動画 mruby 組み込み環境用ruby実装。 特徴 省メモリ
+省ストレージ
+非POSIX, only C99 → ブートローダーなどの立場で動作可能
+CRuby &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -89,108 +91,11 @@
   </header>
 
 
-<div class="entry-content"><h1>Ruby;Exported</h1>
+<div class="entry-content"><p><a href="https://github.com/sprk2012/sprk2012-cfp">札幌rubykaigi2012</a></p>
+
+<h1>Ruby;Exported</h1>
 
 <p><a href="http://www.ustream.tv/recorded/25418815">動画</a></p>
-
-<h1>RubyやLinux対応を積極的に進めるマイクロソフトのオープンソース&lt;3(LOVE)戦略</h1>
-
-<p><a href="http://www.ustream.tv/recorded/25394761">動画</a></p>
-
-<h1>Squaleの裏側</h1>
-
-<p>SqualeというPAASの内部構造
-<a href="http://www.ustream.tv/recorded/25395947">動画</a></p>
-
-<ul>
-<li>Ruby Sinatra Rails publish &amp; deploy.</li>
-<li>サーバーセットアップを忘れてコードに専念！</li>
-<li>ライトユーザーの敷居を下げるのが目標</li>
-</ul>
-
-
-<p>Amazon EC2 instance上にサーバー群を構成している。
-EC2 Instance を仮想コンテナで区切っている。
-(メモリを多く使うので、M2 large などを使う。）</p>
-
-<h2>構成</h2>
-
-<ul>
-<li>Nginx</li>
-<li>Unicorn</li>
-<li>SSHD</li>
-<li>Supervisord</li>
-<li>paperboy-sqale</li>
-</ul>
-
-
-<h2>Containers</h2>
-
-<ul>
-<li>made by LXC</li>
-<li>仮想環境で動く（Heroku Dynos と同じ）</li>
-<li>監視は、プロセスの動作しか見ていない（今後、port監視など強化したい。）</li>
-</ul>
-
-
-<h2>セキュリティ</h2>
-
-<ul>
-<li>tcp port bind を制限し、一般Userからは仕掛けられなくする。</li>
-<li>utp port はそのまま。</li>
-<li>linux kernel patch   1024 → 65535</li>
-</ul>
-
-
-<h2>WebProxy</h2>
-
-<p><a href="http://bit.ly/UHbHlb">技術情報</a></p>
-
-<ul>
-<li>redis 動作nginx のポート番号を管理</li>
-<li>nginx ドメイン名からポート番号を引き当てる</li>
-<li>location をコンテナの状況で分岐処理する。</li>
-</ul>
-
-
-<h2>failover.lua</h2>
-
-<ul>
-<li>コンテナ停止時、502が発生するので、フェイルオーバー処理に移る</li>
-<li>ダウンを検知したので、ダウンコンテナとして把握しておく</li>
-</ul>
-
-
-<h2>dynamic-proxy.lua</h2>
-
-<ul>
-<li>ダウンしたコンテナには接続を振らない</li>
-</ul>
-
-
-<h2>SSH Router</h2>
-
-<p><a href="http://github.com/mizzy/openssh-script-auth">技術情報</a></p>
-
-<ul>
-<li>git  -> Git Server</li>
-<li>sftp -> File Server</li>
-<li>ssh  -> Container</li>
-</ul>
-
-
-<p>このルーティングを実現する仕組み。</p>
-
-<ul>
-<li>AuthorizedKeysScript</li>
-<li>適切にサーバー名、パス情報を修正して実行</li>
-<li>鍵情報の実態はMySQLで管理</li>
-</ul>
-
-
-<h2>Deploy Servers</h2>
-
-<p><a href="http://bit.ly/NBbj9F">技術情報</a></p>
 
 <h1>Ruby + iOS = Super awesome!</h1>
 
@@ -375,7 +280,7 @@ http://mobiruby.org/</p>
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/rails/'>rails</a>, <a class='category' href='/blog/categories/人狼議事-/'>人狼議事,</a>
+    <a class='category' href='/blog/categories/rails-/'>rails,</a>, <a class='category' href='/blog/categories/インフラ/'>インフラ</a>
   
 </span>
 
@@ -396,6 +301,8 @@ http://mobiruby.org/</p>
         <a class="basic-alignment left" href="/blog/2012/09/18/session-language/" title="Previous Post: rubykaigi2012 ruby言語に関するセッション">&laquo; rubykaigi2012 ruby言語に関するセッション</a>
       
       
+        <a class="basic-alignment right" href="/blog/2012/09/18/session-ruby-on-rails/" title="next Post: rubykaigi2012 Ruby on Rails 関連セッション">rubykaigi2012 Ruby on Rails 関連セッション &raquo;</a>
+      
     </p>
   </footer>
 </article>
@@ -409,6 +316,10 @@ http://mobiruby.org/</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/09/18/session-ruby-on-rails/">rubykaigi2012 Ruby on Rails 関連セッション</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/09/18/session-platform/">rubykaigi2012 プラットフォーム技術に関するセッション</a>
       </li>
     
@@ -417,15 +328,11 @@ http://mobiruby.org/</p>
       </li>
     
       <li class="post">
+        <a href="/blog/2012/09/18/session-dci/">rubykaigi2012 Ruby on Rails The Bad Parts</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/02/26/trpg-on-giji/">TRPG on 人狼議事</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/01/26/rails2-remember/">rails2_remember</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/01/26/grant/">他PCからMySQLへ繋ぐ権限</a>
       </li>
     
   </ul>

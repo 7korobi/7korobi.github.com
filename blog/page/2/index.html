@@ -9,9 +9,9 @@
   <meta name="author" content="ななころび">
 
   
-  <meta name="description" content="Formtasticというプラグインはなかなか便利です。
-モデルの変更にあわせて自動でフォームの項目を調節してくれる、inputsというメソッドが最高にありがたい。 …ですが、これ、ActiveRecordには対応しているんですが、MongoDBだと動かないんですね。
-他の変更も含め、 &hellip;">
+  <meta name="description" content="ドキュメント設計（テーブル設計） Mongoidを使いましょう。
+embeddedオブジェクトは高速ですが、引き換えに総浚い検索がやりづらくなります。
+用途の違いをわきまえて embeds / references を使い分けましょう。 また、関連データ（別ドキュメントのIDを保管するフィールド） &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -64,6 +64,202 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/01/20/mongodb-2012-schema-design/">MongoDB_2012 スキーマデザイン</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-20T16:02:00+09:00" pubdate data-updated="true">2012年01月20日</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>ドキュメント設計（テーブル設計）</h2>
+
+<p><a href="http://mongoid.org/docs/relations.html">Mongoid</a>を使いましょう。
+embeddedオブジェクトは高速ですが、引き換えに総浚い検索がやりづらくなります。
+用途の違いをわきまえて embeds / references を使い分けましょう。</p>
+
+<p>また、関連データ（別ドキュメントのIDを保管するフィールド）の整合を保つため、モデルを使ってアクセスしましょう。</p>
+
+<h3>参考</h3>
+
+<ul>
+<li><a href="http://d.hatena.ne.jp/babie/20100809/1281316974">リレーショナルな関連</a></li>
+<li><a href="http://d.hatena.ne.jp/masa_w/20101130/1291084939">スキーマ設計</a></li>
+<li><a href="http://d.hatena.ne.jp/babie/20100809/1281316971">Mongoid 詳解</a></li>
+</ul>
+
+
+<p>ここでは、上記リンク先の内容には触れず、セミナーで紹介されたちょっとしたtipsのみお伝えします。</p>
+
+<h3>他、こまかいテクニック</h3>
+
+<p>補助的なレコードを付与して、高速でスマートなQueryingを行うための工夫について</p>
+
+<ul>
+<li>Tree
+コメントにリプライが可能、などの、親子関係が継ぎ足されている構造です。
+rootまでの祖先を辿れるよう、配列に保管しましょう。（配列データを扱える強み）</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">field</span> <span class="ss">:ancestors</span><span class="p">,</span> <span class="ss">:type</span> <span class="o">=&gt;</span> <span class="nb">Array</span>
+</span><span class='line'><span class="c1"># ancestors: [root_id, parent_id, self]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>更新の衝突
+複数のThreadが、それぞれ同一のデータをクエリして、更新操作を行ってしまうケースがあります。
+こうした問題を避けるため、タイムスタンプや番号でバージョンを把握し、異なるバージョンには保存しないようにしましょう。</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&gt;</span> <span class="vi">@model</span> <span class="o">=</span> <span class="no">Model</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;mongo_master&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="no">Model</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+</span><span class='line'>    <span class="ss">:_id</span> <span class="o">=&gt;</span> <span class="vi">@model</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="ss">:version</span> <span class="o">=&gt;</span> <span class="vi">@model</span><span class="o">.</span><span class="n">version</span>
+</span><span class='line'>  <span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+</span><span class='line'>    <span class="ss">:data</span> <span class="o">=&gt;</span> <span class="s1">&#39;value&#39;</span><span class="p">,</span>  <span class="ss">:version</span> <span class="o">=&gt;</span> <span class="vi">@model</span><span class="o">.</span><span class="n">version</span> <span class="o">+</span> <span class="mi">1</span>
+</span><span class='line'>  <span class="p">)</span>
+</span><span class='line'><span class="no">MONGODB</span> <span class="n">db</span><span class="o">[</span><span class="s1">&#39;models&#39;</span><span class="o">].</span><span class="n">find</span><span class="p">({{</span><span class="s2">&quot;_id&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;mongo_master&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'><span class="no">MONGODB</span> <span class="n">db</span><span class="o">[</span><span class="s1">&#39;models&#39;</span><span class="o">].</span><span class="n">update</span><span class="p">(</span>
+</span><span class='line'>  <span class="p">{</span><span class="s2">&quot;_id&quot;</span><span class="o">=&gt;</span><span class="s2">&quot;mongo_master&quot;</span><span class="p">,</span> <span class="s2">&quot;version&quot;</span><span class="o">=&gt;</span><span class="mi">2</span><span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span><span class="s2">&quot;$set&quot;</span><span class="o">=&gt;</span><span class="p">{</span><span class="ss">:data</span><span class="o">=&gt;</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="ss">:version</span><span class="o">=&gt;</span><span class="mi">3</span><span class="p">}}</span>
+</span><span class='line'><span class="n">e</span><span class="p">)</span>
+</span><span class='line'><span class="o">=&gt;</span> <span class="mi">194</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>また、もう一歩進めて、バージョン管理を導入するのもよいでしょう。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="kp">include</span> <span class="no">Mongoid</span><span class="o">::</span><span class="no">Versioning</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>single table inheritance</h2>
+
+<p>異なるクラスの情報をひとつのテーブルに同居させることです。
+こんなモデルがあったとして。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Shape</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Circle</span> <span class="o">&lt;</span> <span class="no">Shape</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Square</span> <span class="o">&lt;</span> <span class="no">Shape</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Rect</span>   <span class="o">&lt;</span> <span class="no">Shape</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>(RDBの場合)</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">|</span><span class="nb">id</span><span class="o">|</span><span class="n">type</span>   <span class="o">|</span> <span class="n">area</span><span class="o">|</span> <span class="n">radius</span><span class="o">|</span> <span class="n">length</span><span class="o">|</span> <span class="n">width</span><span class="o">|</span>
+</span><span class='line'><span class="o">|--|-------|-----|-------|-------|------|</span>
+</span><span class='line'><span class="o">|</span> <span class="mi">1</span><span class="o">|</span><span class="n">circle</span> <span class="o">|</span> <span class="mi">3</span><span class="o">.</span><span class="mi">14</span><span class="o">|</span>      <span class="mi">1</span><span class="o">|</span> <span class="p">(</span><span class="n">null</span><span class="p">)</span><span class="o">|</span><span class="p">(</span><span class="n">null</span><span class="p">)</span><span class="o">|</span>
+</span><span class='line'><span class="o">|</span> <span class="mi">2</span><span class="o">|</span><span class="n">square</span> <span class="o">|</span>    <span class="mi">4</span><span class="o">|</span> <span class="p">(</span><span class="n">null</span><span class="p">)</span><span class="o">|</span>      <span class="mi">2</span><span class="o">|</span><span class="p">(</span><span class="n">null</span><span class="p">)</span><span class="o">|</span>
+</span><span class='line'><span class="o">|</span> <span class="mi">3</span><span class="o">|</span><span class="n">rect</span>   <span class="o">|</span>   <span class="mi">10</span><span class="o">|</span> <span class="p">(</span><span class="n">null</span><span class="p">)</span><span class="o">|</span>      <span class="mi">5</span><span class="o">|</span>     <span class="mi">2</span><span class="o">|</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>MongoDB</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span><span class="nx">_id</span><span class="o">:</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span><span class="s2">&quot;circle&quot;</span><span class="p">,</span> <span class="nx">area</span><span class="o">:</span><span class="mf">3.14</span><span class="p">,</span> <span class="nx">radius</span><span class="o">:</span><span class="mi">1</span><span class="p">}</span>
+</span><span class='line'><span class="p">{</span><span class="nx">_id</span><span class="o">:</span><span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span><span class="s2">&quot;square&quot;</span><span class="p">,</span> <span class="nx">area</span><span class="o">:</span><span class="mi">4</span><span class="p">,</span> <span class="nx">length</span><span class="o">:</span><span class="mi">2</span><span class="p">}</span>
+</span><span class='line'><span class="p">{</span><span class="nx">_id</span><span class="o">:</span><span class="s2">&quot;3&quot;</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span><span class="s2">&quot;rect&quot;</span><span class="p">,</span>   <span class="nx">area</span><span class="o">:</span><span class="mi">10</span><span class="p">,</span> <span class="nx">length</span><span class="o">:</span><span class="mi">5</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">2</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/12/15/sinatra/">Sinatra</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-15T12:38:00+09:00" pubdate data-updated="true">2011年12月15日</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -816,6 +1012,10 @@ MongoDBでは、データ構造がおかしい場合、アップデートを受�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/09/18/session-ruby-on-rails/">rubykaigi2012 Ruby on Rails 関連セッション</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/09/18/session-platform/">rubykaigi2012 プラットフォーム技術に関するセッション</a>
       </li>
     
@@ -824,15 +1024,11 @@ MongoDBでは、データ構造がおかしい場合、アップデートを受�
       </li>
     
       <li class="post">
+        <a href="/blog/2012/09/18/session-dci/">rubykaigi2012 Ruby on Rails The Bad Parts</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/02/26/trpg-on-giji/">TRPG on 人狼議事</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/01/26/rails2-remember/">rails2_remember</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/01/26/grant/">他PCからMySQLへ繋ぐ権限</a>
       </li>
     
   </ul>
