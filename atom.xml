@@ -4,7 +4,7 @@
   <title><![CDATA[7korobi Blog]]></title>
   <link href="http://7korobi.github.com/atom.xml" rel="self"/>
   <link href="http://7korobi.github.com/"/>
-  <updated>2012-09-19T19:14:49+09:00</updated>
+  <updated>2012-09-19T19:18:09+09:00</updated>
   <id>http://7korobi.github.com/</id>
   <author>
     <name><![CDATA[ななころび]]></name>
@@ -128,17 +128,11 @@ EC2 Instance を仮想コンテナで区切っている。
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[rubykaigi2012 プラットフォーム技術に関するセッション]]></title>
+    <title type="html"><![CDATA[rubykaigi2012 Ruby + iOS = Super awesome!]]></title>
     <link href="http://7korobi.github.com/blog/2012/09/18/session-platform/"/>
     <updated>2012-09-18T12:00:00+09:00</updated>
     <id>http://7korobi.github.com/blog/2012/09/18/session-platform</id>
     <content type="html"><![CDATA[<p><a href="https://github.com/sprk2012/sprk2012-cfp">札幌rubykaigi2012</a></p>
-
-<h1>Ruby;Exported</h1>
-
-<p><a href="http://www.ustream.tv/recorded/25418815">動画</a></p>
-
-<h1>Ruby + iOS = Super awesome!</h1>
 
 <p><a href="http://www.ustream.tv/recorded/25396312">動画</a></p>
 
@@ -298,7 +292,7 @@ http://mobiruby.org/</p>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[rubykaigi2012 ruby言語に関するセッション]]></title>
+    <title type="html"><![CDATA[rubykaigi2012 ruby2.0とその先]]></title>
     <link href="http://7korobi.github.com/blog/2012/09/18/session-language/"/>
     <updated>2012-09-18T12:00:00+09:00</updated>
     <id>http://7korobi.github.com/blog/2012/09/18/session-language</id>

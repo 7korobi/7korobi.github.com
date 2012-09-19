@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>rubykaigi2012 Ruby on Rails 関連セッション - 7korobi Blog</title>
+  <title>Category: iOS - 7korobi Blog</title>
   <meta name="author" content="ななころび">
 
   
-  <meta name="description" content="札幌rubykaigi2012 Rails3 レシピブック外伝 動画 RubyやLinux対応を積極的に進めるマイクロソフトのオープンソース&lt;3(LOVE)戦略 動画 Windows 64bit用に、artonさん作のプラットフォーム「能楽堂」の紹介がある。イチから作り、 &hellip;">
+  <meta name="description" content="Category: iOS">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://7korobi.github.com/blog/2012/09/18/session-ruby-on-rails">
+  <link rel="canonical" href="http://7korobi.github.comblog/categories/ios">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -61,189 +61,35 @@
   <div id="main">
     <div id="content">
       <div>
-<article class="hentry" role="article">
+<article role="article">
   
   <header>
-    
-      <h1 class="entry-title">Rubykaigi2012 Ruby on Rails 関連セッション</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-09-18T12:00:00+09:00" pubdate data-updated="true">2012年09月18日</time>
-        
-      </p>
+    <h1 class="entry-title">Category: iOS</h1>
     
   </header>
+  
+  <div id="blog-archives" class="category">
 
 
-<div class="entry-content"><p><a href="https://github.com/sprk2012/sprk2012-cfp">札幌rubykaigi2012</a></p>
 
-<h1>Rails3 レシピブック外伝</h1>
+  
+  <h2>2012</h2>
 
-<p><a href="http://www.ustream.tv/recorded/25419544">動画</a></p>
+<article>
+  
+<h1><a href="/blog/2012/09/18/session-platform/">rubykaigi2012 Ruby + iOS = Super awesome!</a></h1>
+<time datetime="2012-09-18T12:00:00+09:00" pubdate><span class='month'>Sep</span> <span class='day'>18</span> <span class='year'>2012</span></time>
 
-<h1>RubyやLinux対応を積極的に進めるマイクロソフトのオープンソース&lt;3(LOVE)戦略</h1>
-
-<p><a href="http://www.ustream.tv/recorded/25394761">動画</a></p>
-
-<p>Windows 64bit用に、artonさん作のプラットフォーム「能楽堂」の紹介がある。イチから作り、IISとオサラバしたとのこと。</p>
-
-<h1>Squaleの裏側</h1>
-
-<p>SqualeというPAASの内部構造
-<a href="http://www.ustream.tv/recorded/25395947">動画</a></p>
-
-<ul>
-<li>Ruby Sinatra Rails publish &amp; deploy.</li>
-<li>サーバーセットアップを忘れてコードに専念！</li>
-<li>ライトユーザーの敷居を下げるのが目標</li>
-</ul>
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/ios/'>iOS</a>, <a class='category' href='/blog/categories/rails/'>rails</a></span>
+</footer>
 
 
-<p>Amazon EC2 instance上にサーバー群を構成している。
-EC2 Instance を仮想コンテナで区切っている。
-(メモリを多く使うので、M2 large などを使う。）</p>
+</article>
 
-<h2>構成</h2>
-
-<ul>
-<li>Nginx</li>
-<li>Unicorn</li>
-<li>SSHD</li>
-<li>Supervisord</li>
-<li>paperboy-sqale</li>
-</ul>
-
-
-<h2>Containers</h2>
-
-<ul>
-<li>made by LXC</li>
-<li>仮想環境で動く（Heroku Dynos と同じ）</li>
-<li>監視は、プロセスの動作しか見ていない（今後、port監視など強化したい。）</li>
-</ul>
-
-
-<h2>セキュリティ</h2>
-
-<ul>
-<li>tcp port bind を制限し、一般Userからは仕掛けられなくする。</li>
-<li>utp port はそのまま。</li>
-<li>linux kernel patch   1024 → 65535</li>
-</ul>
-
-
-<h2>WebProxy</h2>
-
-<p><a href="http://bit.ly/UHbHlb">技術情報</a></p>
-
-<ul>
-<li>redis 動作nginx のポート番号を管理</li>
-<li>nginx ドメイン名からポート番号を引き当てる</li>
-<li>location をコンテナの状況で分岐処理する。</li>
-</ul>
-
-
-<h2>failover.lua</h2>
-
-<ul>
-<li>コンテナ停止時、502が発生するので、フェイルオーバー処理に移る</li>
-<li>ダウンを検知したので、ダウンコンテナとして把握しておく</li>
-</ul>
-
-
-<h2>dynamic-proxy.lua</h2>
-
-<ul>
-<li>ダウンしたコンテナには接続を振らない</li>
-</ul>
-
-
-<h2>SSH Router</h2>
-
-<p><a href="http://github.com/mizzy/openssh-script-auth">技術情報</a></p>
-
-<ul>
-<li>git  -> Git Server</li>
-<li>sftp -> File Server</li>
-<li>ssh  -> Container</li>
-</ul>
-
-
-<p>このルーティングを実現する仕組み。</p>
-
-<ul>
-<li>AuthorizedKeysScript</li>
-<li>適切にサーバー名、パス情報を修正して実行</li>
-<li>鍵情報の実態はMySQLで管理</li>
-</ul>
-
-
-<h2>Deploy Servers</h2>
-
-<p><a href="http://bit.ly/NBbj9F">技術情報</a></p>
 </div>
 
-
-  <footer>
-    <p class="meta">
-      
   
-
-<span class="byline author vcard">Posted by <span class="fn">ななころび</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-09-18T12:00:00+09:00" pubdate data-updated="true">2012年09月18日</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/rails/'>rails</a>, <a class='category' href='/blog/categories/インフラ/'>インフラ</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://7korobi.github.com/blog/2012/09/18/session-ruby-on-rails/" data-via="7korobi" data-counturl="http://7korobi.github.com/blog/2012/09/18/session-ruby-on-rails/" >Tweet</a>
-  
-  
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/blog/2012/09/18/session-platform/" title="Previous Post: rubykaigi2012 Ruby + iOS = Super awesome!">&laquo; rubykaigi2012 Ruby + iOS = Super awesome!</a>
-      
-      
-    </p>
-  </footer>
 </article>
 
 </div>

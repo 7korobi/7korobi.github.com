@@ -4,7 +4,7 @@
   <title><![CDATA[Category: rails | 7korobi Blog]]></title>
   <link href="http://7korobi.github.com/blog/categories/rails/atom.xml" rel="self"/>
   <link href="http://7korobi.github.com/"/>
-  <updated>2012-09-19T19:14:49+09:00</updated>
+  <updated>2012-09-19T19:18:09+09:00</updated>
   <id>http://7korobi.github.com/</id>
   <author>
     <name><![CDATA[ななころび]]></name>
@@ -124,6 +124,591 @@ EC2 Instance を仮想コンテナで区切っている。
 <h2>Deploy Servers</h2>
 
 <p><a href="http://bit.ly/NBbj9F">技術情報</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[rubykaigi2012 Ruby + iOS = Super awesome!]]></title>
+    <link href="http://7korobi.github.com/blog/2012/09/18/session-platform/"/>
+    <updated>2012-09-18T12:00:00+09:00</updated>
+    <id>http://7korobi.github.com/blog/2012/09/18/session-platform</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/sprk2012/sprk2012-cfp">札幌rubykaigi2012</a></p>
+
+<p><a href="http://www.ustream.tv/recorded/25396312">動画</a></p>
+
+<h2>mruby</h2>
+
+<p>組み込み環境用ruby実装。</p>
+
+<h3>特徴</h3>
+
+<ul>
+<li>省メモリ</li>
+<li>省ストレージ</li>
+<li>非POSIX, only C99 → ブートローダーなどの立場で動作可能</li>
+<li>CRuby 拡張ライブラリと互換がない。（rubygems が使えない）</li>
+</ul>
+
+
+<h3>マイルストーン</h3>
+
+<ul>
+<li>fiber ゲーム業界が欲しい（イベントドリブン書きづらいので）</li>
+<li>デバッグについて
+
+<ul>
+<li>エミュレーターなど開発環境でだけは、リッチな情報が欲しい。</li>
+<li>mobirubyでは変数レポートなどしたい。</li>
+</ul>
+</li>
+<li>コミュニケーションは、githubのみ（ML用意しない）</li>
+<li>多様性（しかし）
+
+<ul>
+<li>JRuby Rubinius CRuby でもGemが使えるように、エクステンションの労力が少なくしようという流れの中にある。</li>
+<li>extension API では、mrubyの要求を満たさない。</li>
+<li>JRubyなどが extension互換性については頑張っていることと、CRubyが今後のメインストリームの位置にあればよい。</li>
+<li>mruby gemsを別に作る提案もある。フレームワークを決めて、extensionを一気にコンパイルしてくれる仕組み。</li>
+<li>が、今はまだ検討の段階にある。</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>MobiRuby</h2>
+
+<p>iPhoneアプリケーションをRubyで書く
+http://mobiruby.org/</p>
+
+<h3>目標</h3>
+
+<ul>
+<li>mruby(組み込みruby) を使ったruby開発。</li>
+<li>rubyの力をiOS/androidに提供する。</li>
+<li>最終的にはラッピングAPIの提供まで視野に入れる。</li>
+<li>ダイレクトAPIの提供を残し、必要なら細かい操作が可能にする。</li>
+</ul>
+
+
+<h3>来歴</h3>
+
+<ul>
+<li>2012/03   きっかけ</li>
+<li>2012/06   スタートアップ</li>
+<li>2012/09   MAC環境α（samegame）人によっては動作しないらしい？</li>
+</ul>
+
+
+<h3>現状</h3>
+
+<ul>
+<li>iOS と Ruby が大好き、という人専用（現状）</li>
+<li>128bit 整数（C long long）サポートがまだ</li>
+<li>デバッグ情報を出す機能がまだ</li>
+<li>appleの審査を通すため、eval、define_methodなどの動的機能はない。</li>
+<li>ObjC に機能がないため、特異メソッド定義ができない。</li>
+</ul>
+
+
+<h3>RoadMap</h3>
+
+<ul>
+<li>Fix BUG</li>
+<li>cocoa bridge 完了</li>
+<li>Documentation</li>
+<li>Packaging</li>
+</ul>
+
+
+<h3>構成</h3>
+
+<ul>
+<li>iOS
+
+<ul>
+<li>mruby
+
+<ul>
+<li>mruby-cfunc Cブリッジ
+
+<ul>
+<li>mruby-common</li>
+<li>mruby-cocoa Cocoaブリッジ</li>
+<li>mruby-ios iOS特化機能、iOSブートストラップ。将来はラッパライブラリ</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>mruby-common</h3>
+
+<ul>
+<li>iPhone、Android 共通機能</li>
+<li>POSIX、ランダムなど</li>
+</ul>
+
+
+<h3>mruby-cocoa Cocoaブリッジ</h3>
+
+<ul>
+<li>cocoaの動的支援（文字列リクエストでクラスのポインタを取得、など）を使っている。</li>
+<li>UIウィンドウからインスタンスを作ってVisibleにする。など</li>
+<li>ObjC-Class &lt; Ruby-Class &lt; ObjC-Class</li>
+<li>ruby からの呼び出時は、リフレクションする。
+
+<ul>
+<li>define で定義すると、ruby、objC 両方からコール可能な定義になる</li>
+<li>Class#_method で、rubyからobjCのメソッドを呼ぶ。</li>
+</ul>
+</li>
+<li>ObjC object と可換な Ruby object</li>
+<li>今バージョンはメモリリークがある。（リセット連打で落ちたりする）</li>
+<li>メモリ管理 ObjCメモリ管理を Swizzle して、実態はmrubyの管理にしている。
+
+<ul>
+<li>重い！全メモリアクセスをフックするため</li>
+</ul>
+</li>
+<li>マルチスレッド非対応。複数のVMを同アプリで起動し、スレッドのように扱うアイデアで検討中</li>
+</ul>
+
+
+<h3>mruby アプリケーション</h3>
+
+<ul>
+<li>app.rb
+
+<ul>
+<li>hello.rb</li>
+</ul>
+</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[rubykaigi2012 ruby2.0とその先]]></title>
+    <link href="http://7korobi.github.com/blog/2012/09/18/session-language/"/>
+    <updated>2012-09-18T12:00:00+09:00</updated>
+    <id>http://7korobi.github.com/blog/2012/09/18/session-language</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/sprk2012/sprk2012-cfp">札幌rubykaigi2012</a></p>
+
+<h1>Towards Ruby 2.0: Progress of VM Internals</h1>
+
+<p><a href="http://www.ustream.tv/recorded/25419520">動画</a></p>
+
+<h2>履歴と予定</h2>
+
+<ul>
+<li>2012-08    Big-feature freeze</li>
+<li>2012-10    Feature freeze</li>
+<li>2013-02-24 Ruby 2.0 Release 20th anniversary</li>
+</ul>
+
+
+<h2>Policy 開発方針</h2>
+
+<p>ruby2.0の新機能をどのように実装したか。</p>
+
+<ul>
+<li>Compatibility</li>
+<li>Compatibility</li>
+<li>Compatibility</li>
+<li>Usability</li>
+<li>Performance</li>
+</ul>
+
+
+<h2>ruby2.0でやったこと</h2>
+
+<h3>Module#prepend</h3>
+
+<ul>
+<li>従来、alias_method_chainでダーティ・ハックしていたことを実現するためのmethod.</li>
+<li>around (before-each after-each) など実現しやすい。</li>
+<li>prependするモジュールがサブクラス側の扱い。Object#extend はクラスの定義物より優先で処理されるが、同等の順序となる。</li>
+</ul>
+
+
+<h3>Flonum(64bit)</h3>
+
+<p>Floatがimmediateでないため、GCコストが莫大になる問題が発生する。
+そこで、64bit向けに、IEEE754演算をimmutableオブジェクトとして提供する。
+ただし、拡張ライブラリはリビルドしないと、VALUEがずれる。</p>
+
+<ul>
+<li><p>VALUE(インスタンスのメモリ上の共用体)</p>
+
+<ul>
+<li>Fixnum</li>
+<li>Flonum <em>追加</em></li>
+<li>Symbol</li>
+<li>Qfalse</li>
+<li>Qnil</li>
+<li>Qtrue</li>
+<li>Qundef</li>
+<li>Pointer</li>
+</ul>
+</li>
+<li><p>Flonum &lt; IEEE754 2bit落とそう</p>
+
+<ul>
+<li>IEEE754 b52-b62 with-in 768 のみFlonumと扱う。</li>
+<li>rotate 3bit + 2bit mask</li>
+</ul>
+</li>
+<li>Benchmarkはほぼ一定。多少遅い部分をチューンする</li>
+</ul>
+
+
+<h3>backtrace API</h3>
+
+<ul>
+<li>caller_locations
+
+<ul>
+<li>lineno</li>
+<li>path</li>
+<li>etc...</li>
+<li>例外を沢山だすプログラムが高速化する</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>set_trace_func</h3>
+
+<ul>
+<li>TracePoint API
+
+<ul>
+<li>メソッド呼び出しだけInvokeする、などの処理が可能。</li>
+</ul>
+</li>
+<li>New C API</li>
+</ul>
+
+
+<h3>Controllable asynchronous Interrupts</h3>
+
+<ul>
+<li>終了処理の最中でも非同期割り込みは入ってきてしまうが、それでは困る処理のための機能。</li>
+<li>Thread.control_interrupt(TimeoutError => :on_blocking) do … end</li>
+</ul>
+
+
+<h3>その他の変更</h3>
+
+<ul>
+<li>finish frame を取り除きました。</li>
+<li>allocation function を直接に変更、高速化しました。</li>
+<li>VM最適化：メソッド呼び出しコストが大きいので、最適化したい</li>
+<li>VMデータ構造訂正</li>
+</ul>
+
+
+<h3>将来やりたいこと</h3>
+
+<ul>
+<li>C APIs for Incomplete Feature</li>
+</ul>
+
+
+<p>あきらめたこと</p>
+
+<ul>
+<li>MVM</li>
+</ul>
+
+
+<h1>Purely functional programming in Ruby</h1>
+
+<p><a href="http://www.ustream.tv/recorded/25412526">動画</a></p>
+
+<p>副作用を用いないプログラミング
+関数プログラミングをすると、自然に永続データ構造になる。</p>
+
+<ul>
+<li>短命データ構造 変更をくわえると前のデータが失われるデータ構造</li>
+<li>永続データ構造 変更前のバージョンのデータが保存されるデータ構造
+
+<ul>
+<li>本来、並列動作に適している。（本セッションでの紹介内容は、スレッドセーフにしていない。）</li>
+<li>テストしやすい</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>関数プログラミングがしないこと</h2>
+
+<ul>
+<li>変数の再代入</li>
+<li>オブジェクトの状態変更</li>
+<li>入出力</li>
+</ul>
+
+
+<h2>リスト</h2>
+
+<p>Arrayは副作用を避けられないので、線形リストを実装しよう。</p>
+
+<ul>
+<li>while は副作用に依存する。</li>
+<li>Enumerable#map 内部ではpushの副作用を使う。</li>
+</ul>
+
+
+<p>``` ruby
+ List[1,2,3] - head: 1 tail: List[2,3]
+   List[2,3] - head: 2 tail: List[3]</p>
+
+<pre><code> List[3] - head: 3 tail: nil
+  List[] - nil
+</code></pre>
+
+<p>```</p>
+
+<h2>末尾再帰</h2>
+
+<p>引数に情報をうまく蓄積するようにするテクニック。
+スタックの消費を抑え、SystemStackError(!)を避けられます。
+コンパイルオプションで最適化が有効になる。（Ruby2.0ではデフォルトになるかも？）</p>
+
+<ul>
+<li>末尾再帰は空間効率が良い。大きい入力に有利。</li>
+<li>末尾再帰でないコードは時間効率がよい。小さい入力に有利</li>
+<li>ただし、計算量はどちらもO(n)</li>
+</ul>
+
+
+<p>``` ruby
+class Cons&lt; List
+  def length</p>
+
+<pre><code>tail.length + 1
+</code></pre>
+
+<p>  end
+end
+def Nil.length
+  0
+end</p>
+
+<p>⇩</p>
+
+<p>class List
+  def length</p>
+
+<pre><code>_length(0)
+</code></pre>
+
+<p>  end
+end
+class Cons &lt; List
+  def _length(n)</p>
+
+<pre><code>tail._length(n + 1)
+</code></pre>
+
+<p>  end
+end
+def Nil._length(n)
+  n
+end
+```</p>
+
+<h2>Listを組み込みオブジェクトにする取り組み(#6242)</h2>
+
+<ul>
+<li>※ マルチスレッド動作への対応はできていない状況です。</li>
+<li>右結合の演算子 ::: で、カッコ無しで書く。</li>
+<li>0 ::: S[1,2,3] => S[0,1,2,3]</li>
+<li>0 ::: 1 ::: 2 ::: 3</li>
+</ul>
+
+
+<h3>Lazy evaluation</h3>
+
+<ul>
+<li>必要になるまで式の評価を遅延させる。</li>
+<li>Memoization
+
+<ul>
+<li>何度実行しても一回しか評価されない。</li>
+<li>副作用がないからそれで問題ない。</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>Immutable</h3>
+
+<ul>
+<li>map</li>
+<li>Queue</li>
+<li>Deque</li>
+<li>Promise
+
+<ul>
+<li>lazy
+
+<ul>
+<li>lazy(x) = delay(x.force)</li>
+<li>再帰してもスタックが溢れない</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Stream
+
+<ul>
+<li>遅延リスト（必要とされるまでリストの要素がない）</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>Benchmark</h3>
+
+<ul>
+<li>ListはArrayの7.4倍遅い！</li>
+<li>繰り返しdupするようなことにおすすめ。</li>
+</ul>
+
+
+<h1>Pattern Matching in Ruby</h1>
+
+<p><a href="http://www.ustream.tv/recorded/25413389">動画</a></p>
+
+<h2>パターンマッチとは</h2>
+
+<p>多重代入＋α</p>
+
+<p><code>ruby
+多重代入
+a, (b,c) = [1, [2,3]]
+</code></p>
+
+<p><code>ruby
+パターンマッチ
+[1, [2, 3] match {
+case [a, [b, c]] =&gt;
+</code></p>
+
+<p>なぜ多重代入ではいけない？</p>
+
+<h2>多重代入の問題点</h2>
+
+<ul>
+<li>分解機能が弱い Arrayに限定されてしまう。</li>
+<li>照合機能が弱い 個数の確認ができない。</li>
+<li>代入機能がない 途中の値（[2,3]の部分）を代入できない</li>
+</ul>
+
+
+<p>```ruby
+Array[1,[2,3]] match
+case Array[1,[b,c]] => Array[a,b,c]</p>
+
+<p>List[1,[2,3]] match
+case List[1,[b,c]] => List[a,b,c]
+```</p>
+
+<h3>分解の例</h3>
+
+<p>```ruby
+Email#unapply</p>
+
+<p>"foo@example.com" match
+case Email(user, domain) => "foo","example.com"
+```</p>
+
+<p><code>ruby
+"2012-09-15" match
+case /(¥d+)-(¥d+)-(¥d+)/ =&gt;
+</code></p>
+
+<h3>照合の例</h3>
+
+<p><code>ruby
+Array[1,Array[2,3]] match {
+case Array[a,[b,c],d]   =&gt; nil
+case Array[a,List[b,c]] =&gt; nil
+case Array[0,[b,c]]     =&gt; nil
+}
+// MatchError
+</code></p>
+
+<h3>代入の例</h3>
+
+<p><code>ruby
+Array[1,Array[2,3]] match {
+case Array[a,d @ Array[b,c]] =&gt; Array[a,b,c,d]
+}
+</code></p>
+
+<p><a href="https://github.com/k-tsj/pattern-match">Rubyで実際に書く方法</a>
+<code>ruby
+gem install pattern-match
+</code></p>
+
+<p>パターンマッチは非常に強力
+- ログ分析
+- 正規表現のかわり
+- 他にもユースケースは沢山！</p>
+
+<h3>分解(Deconstructable)</h3>
+
+<p>```ruby
+class Regexp
+  include PatternMatch::Deconstructable</p>
+
+<p>  def deconstruct(val)</p>
+
+<pre><code>m = Regexp.new
+</code></pre>
+
+<p>```
+  with(Array.(a,b))
+- Deconstructor のクラスに、Deconstructorをinclude
+- Array.deconstruct(val)</p>
+
+<p>照合/代入の例</p>
+
+<p>Destructuring Assignment
+Duck typing style</p>
+
+<p>利用例
+- テキスト処理（エラー処理もある）
+- ツリーノード処理（HTML,XMLなど）</p>
+
+<p>デザイン（文法）
+- match式を新設
+- case式を拡張
+- メソッド引数、ブロック引数（文化的にスコシチガウ）</p>
+
+<p>デザイン（分解）
+- コンストラクトメソッド（コンテキストに応じた分解）
+- コンストラクタ引数を適切に変える</p>
+
+<p>デザイン（照合）
+- 正規表現的マッチ
+   <em>i, Fixnum, </em>j  が動けば…
+- Mathematicaではやっている。</p>
+
+<pre><code>Replace[{1,2,3,4,5}, {a___, b_, Shortest[c___]}]
+</code></pre>
+
+<ul>
+<li>Setなど、正規形をもたないオブジェクトに対する照合は？</li>
+</ul>
+
 ]]></content>
   </entry>
   
@@ -337,233 +922,6 @@ TRPGには、GMとプレイヤーがシナリオに参加し、集まったキ�
 <li><p>シナリオの終了</p></li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[rails2_remember]]></title>
-    <link href="http://7korobi.github.com/blog/2012/01/26/rails2-remember/"/>
-    <updated>2012-01-26T13:23:00+09:00</updated>
-    <id>http://7korobi.github.com/blog/2012/01/26/rails2-remember</id>
-    <content type="html"><![CDATA[<p>思い出したほうがよさそうな、Rails2の機能を三つほど。</p>
-
-<p>・<a href="http://apidock.com/rails/Module/delegate">delegate</a>
-・<a href="http://apidock.com/rails/ActiveSupport/Memoizable/memoize">memoize</a>
-・<a href="http://apidock.com/rails/ActionDispatch/Rescue/rescue_from">rescue_from</a></p>
-
-<h2>delegate</h2>
-
-<p>``` ruby
-class A
-  attr_reader :b
-  def initialize</p>
-
-<pre><code>@b = OpenStruct.new(
-  foo: 'b.foo',
-  bar: 'b.bar',
-  baz: 'b.baz'
-)
-</code></pre>
-
-<p>  end
-  delegate :foo, :to=>:b
-  delegate :bar, :to=>:b, :prefix=>true
-  delegate :baz, :to=>:b, :prefix=>"target"
-  delegate :quod, :to=>:@b, :prefix=>"target"
-end</p>
-
-<h1>ArgumentError: Can only automatically set the delegation prefix when delegating to a method.</h1>
-
-<p>a = A.new
-a.foo        # => b.foo
-a.b_bar      # => b.bar
-a.target_baz # => b.baz
-a.target_quod # NoMethodError: undefined method `target_quod' for ...</p>
-
-<p>```</p>
-
-<h2>memoize</h2>
-
-<p>``` ruby
-class A
-  extend ActiveSupport::Memoizable
-  def foo(a,b)</p>
-
-<pre><code>puts 'a.foo exec!'
-a + b
-</code></pre>
-
-<p>  end
-  memoize :foo
-end</p>
-
-<p>a = A.new
-a.foo(1,2)      # a.foo exec! => 3
-a.foo(1,2)      #             => 3
-a.foo(1,2,true) # a.foo exec! => 3
-a.foo(2,2)      # a.foo exec! => 4
-a.foo(2,2)      #             => 4
-a.instance_variable_get(:@_memoized_foo) # {[1,2] => 3, [2,2] => 4}
-```</p>
-
-<h2>rescue_from</h2>
-
-<p>``` ruby
-class A
-  include ActiveSupport::Rescuable
-  class FetchException &lt; RuntimeError; end
-  class StoreException &lt; RuntimeError; end</p>
-
-<p>  rescue_from FetchException do |e| @error = "取得失敗: #{e}" end
-  rescue_from StoreException do |e| @error = "保存失敗: #{e}" end</p>
-
-<p>  def fetch</p>
-
-<pre><code>raise FetchException if rand(2) == 0 
-</code></pre>
-
-<p>  end</p>
-
-<p>  def store</p>
-
-<pre><code>raise StoreException if rand(2) == 0 
-</code></pre>
-
-<p>  end</p>
-
-<p>  def execute</p>
-
-<pre><code>fetch
-store
-</code></pre>
-
-<p>  rescue Exception => error</p>
-
-<pre><code>rescue_with_handler(error) ? @error : raise
-</code></pre>
-
-<p>  end
-end</p>
-
-<p>class B &lt; A
-  class StoreException &lt; RuntimeError; end
-  rescue_from StoreException do |e| @error = "保存失敗: #{e}" end</p>
-
-<p>  def store</p>
-
-<pre><code>raise StoreException if rand(2) == 0 
-</code></pre>
-
-<p>  end<br/>
-end</p>
-
-<p>a = A.new
-a.execute # => たまに "取得失敗: A::FetchException"
-a.execute # => たまに "保存失敗: A::FetchException"
-b = B.new
-b.execute # => たまに "取得失敗: A::FetchException"
-b.execute # => たまに "保存失敗: B::FetchException"
-```</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[formtastic]]></title>
-    <link href="http://7korobi.github.com/blog/2011/12/11/formtastic/"/>
-    <updated>2011-12-11T01:25:00+09:00</updated>
-    <id>http://7korobi.github.com/blog/2011/12/11/formtastic</id>
-    <content type="html"><![CDATA[<p>Formtasticというプラグインはなかなか便利です。
-モデルの変更にあわせて自動でフォームの項目を調節してくれる、inputsというメソッドが最高にありがたい。</p>
-
-<p>…ですが、これ、ActiveRecordには対応しているんですが、MongoDBだと動かないんですね。
-他の変更も含め、Gemに固めてやろうといろいろ模索していますが、とりあえず最低限なにが必要なのかを覚書き。</p>
-
-<p>``` ruby
-module Mongoid
-  module Document</p>
-
-<pre><code>def self.included(base)
-  def base.field(name, options = {})
-    super
-    記録を取る
-  end
-  def base.referenced_in(name, options = {})
-    super
-    記録を取る
-  end
-  def base.references_many(name, options = {})
-    super
-    記録を取る
-  end
-  def base.embedded_in(name, options = {})
-    super
-    記録を取る
-  end
-  def base.embeds_many(name, options = {})
-    super
-    記録を取る
-  end
-  def base.references_and_referenced_in_many(name, options = {})
-    super
-    記録を取る
-  end
-  base.class_eval do
-    def column_for_attribute(attribute_name)
-      なんとかする
-    end
-  end
-  def base.content_columns
-    なんとかする
-  end
-  def base.reflections
-    relations
-  end
-end
-</code></pre>
-
-<p>  end
-end</p>
-
-<p>module Formtastic
-  module Inputs</p>
-
-<pre><code>class ArrayInput
-  include Base
-  include Base::Stringish
-
-  def to_html
-    @object.each do |exp|
-      input_wrapping do
-        label_html &lt;&lt;
-        どうにかする
-      end
-  end
-end
-</code></pre>
-
-<p>  end
-end</p>
-
-<p>module Formtastic
-  module Helpers</p>
-
-<pre><code>module InputHelper
-  protected
-  def default_input_type(method, options = {})
-    大幅に書き換え。
-    ActiveRecordではありえないような、
-    Array型などの入力用フォームに対応する。
-  end
-end
-</code></pre>
-
-<p>  end
-end
-```</p>
-
-<p>けっこう長い！</p>
-
-<p>実際にはもちろん、メソッド定義の中身も必要です。</p>
 ]]></content>
   </entry>
   

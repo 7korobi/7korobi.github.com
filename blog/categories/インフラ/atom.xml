@@ -4,7 +4,7 @@
   <title><![CDATA[Category: インフラ | 7korobi Blog]]></title>
   <link href="http://7korobi.github.com/blog/categories/インフラ/atom.xml" rel="self"/>
   <link href="http://7korobi.github.com/"/>
-  <updated>2012-09-19T19:14:49+09:00</updated>
+  <updated>2012-09-19T19:18:09+09:00</updated>
   <id>http://7korobi.github.com/</id>
   <author>
     <name><![CDATA[ななころび]]></name>
@@ -14,172 +14,116 @@
 
   
   <entry>
-    <title type="html"><![CDATA[rubykaigi2012 プラットフォーム技術に関するセッション]]></title>
-    <link href="http://7korobi.github.com/blog/2012/09/18/session-platform/"/>
+    <title type="html"><![CDATA[rubykaigi2012 Ruby on Rails 関連セッション]]></title>
+    <link href="http://7korobi.github.com/blog/2012/09/18/session-ruby-on-rails/"/>
     <updated>2012-09-18T12:00:00+09:00</updated>
-    <id>http://7korobi.github.com/blog/2012/09/18/session-platform</id>
+    <id>http://7korobi.github.com/blog/2012/09/18/session-ruby-on-rails</id>
     <content type="html"><![CDATA[<p><a href="https://github.com/sprk2012/sprk2012-cfp">札幌rubykaigi2012</a></p>
 
-<h1>Ruby;Exported</h1>
+<h1>Rails3 レシピブック外伝</h1>
 
-<p><a href="http://www.ustream.tv/recorded/25418815">動画</a></p>
+<p><a href="http://www.ustream.tv/recorded/25419544">動画</a></p>
 
-<h1>Ruby + iOS = Super awesome!</h1>
+<h1>RubyやLinux対応を積極的に進めるマイクロソフトのオープンソース&lt;3(LOVE)戦略</h1>
 
-<p><a href="http://www.ustream.tv/recorded/25396312">動画</a></p>
+<p><a href="http://www.ustream.tv/recorded/25394761">動画</a></p>
 
-<h2>mruby</h2>
+<p>Windows 64bit用に、artonさん作のプラットフォーム「能楽堂」の紹介がある。イチから作り、IISとオサラバしたとのこと。</p>
 
-<p>組み込み環境用ruby実装。</p>
+<h1>Squaleの裏側</h1>
 
-<h3>特徴</h3>
+<p>SqualeというPAASの内部構造
+<a href="http://www.ustream.tv/recorded/25395947">動画</a></p>
 
 <ul>
-<li>省メモリ</li>
-<li>省ストレージ</li>
-<li>非POSIX, only C99 → ブートローダーなどの立場で動作可能</li>
-<li>CRuby 拡張ライブラリと互換がない。（rubygems が使えない）</li>
+<li>Ruby Sinatra Rails publish &amp; deploy.</li>
+<li>サーバーセットアップを忘れてコードに専念！</li>
+<li>ライトユーザーの敷居を下げるのが目標</li>
 </ul>
 
 
-<h3>マイルストーン</h3>
+<p>Amazon EC2 instance上にサーバー群を構成している。
+EC2 Instance を仮想コンテナで区切っている。
+(メモリを多く使うので、M2 large などを使う。）</p>
+
+<h2>構成</h2>
 
 <ul>
-<li>fiber ゲーム業界が欲しい（イベントドリブン書きづらいので）</li>
-<li>デバッグについて
-
-<ul>
-<li>エミュレーターなど開発環境でだけは、リッチな情報が欲しい。</li>
-<li>mobirubyでは変数レポートなどしたい。</li>
-</ul>
-</li>
-<li>コミュニケーションは、githubのみ（ML用意しない）</li>
-<li>多様性（しかし）
-
-<ul>
-<li>JRuby Rubinius CRuby でもGemが使えるように、エクステンションの労力が少なくしようという流れの中にある。</li>
-<li>extension API では、mrubyの要求を満たさない。</li>
-<li>JRubyなどが extension互換性については頑張っていることと、CRubyが今後のメインストリームの位置にあればよい。</li>
-<li>mruby gemsを別に作る提案もある。フレームワークを決めて、extensionを一気にコンパイルしてくれる仕組み。</li>
-<li>が、今はまだ検討の段階にある。</li>
-</ul>
-</li>
+<li>Nginx</li>
+<li>Unicorn</li>
+<li>SSHD</li>
+<li>Supervisord</li>
+<li>paperboy-sqale</li>
 </ul>
 
 
-<h2>MobiRuby</h2>
-
-<p>iPhoneアプリケーションをRubyで書く
-http://mobiruby.org/</p>
-
-<h3>目標</h3>
+<h2>Containers</h2>
 
 <ul>
-<li>mruby(組み込みruby) を使ったruby開発。</li>
-<li>rubyの力をiOS/androidに提供する。</li>
-<li>最終的にはラッピングAPIの提供まで視野に入れる。</li>
-<li>ダイレクトAPIの提供を残し、必要なら細かい操作が可能にする。</li>
+<li>made by LXC</li>
+<li>仮想環境で動く（Heroku Dynos と同じ）</li>
+<li>監視は、プロセスの動作しか見ていない（今後、port監視など強化したい。）</li>
 </ul>
 
 
-<h3>来歴</h3>
+<h2>セキュリティ</h2>
 
 <ul>
-<li>2012/03   きっかけ</li>
-<li>2012/06   スタートアップ</li>
-<li>2012/09   MAC環境α（samegame）人によっては動作しないらしい？</li>
+<li>tcp port bind を制限し、一般Userからは仕掛けられなくする。</li>
+<li>utp port はそのまま。</li>
+<li>linux kernel patch   1024 → 65535</li>
 </ul>
 
 
-<h3>現状</h3>
+<h2>WebProxy</h2>
+
+<p><a href="http://bit.ly/UHbHlb">技術情報</a></p>
 
 <ul>
-<li>iOS と Ruby が大好き、という人専用（現状）</li>
-<li>128bit 整数（C long long）サポートがまだ</li>
-<li>デバッグ情報を出す機能がまだ</li>
-<li>appleの審査を通すため、eval、define_methodなどの動的機能はない。</li>
-<li>ObjC に機能がないため、特異メソッド定義ができない。</li>
+<li>redis 動作nginx のポート番号を管理</li>
+<li>nginx ドメイン名からポート番号を引き当てる</li>
+<li>location をコンテナの状況で分岐処理する。</li>
 </ul>
 
 
-<h3>RoadMap</h3>
+<h2>failover.lua</h2>
 
 <ul>
-<li>Fix BUG</li>
-<li>cocoa bridge 完了</li>
-<li>Documentation</li>
-<li>Packaging</li>
+<li>コンテナ停止時、502が発生するので、フェイルオーバー処理に移る</li>
+<li>ダウンを検知したので、ダウンコンテナとして把握しておく</li>
 </ul>
 
 
-<h3>構成</h3>
+<h2>dynamic-proxy.lua</h2>
 
 <ul>
-<li>iOS
-
-<ul>
-<li>mruby
-
-<ul>
-<li>mruby-cfunc Cブリッジ
-
-<ul>
-<li>mruby-common</li>
-<li>mruby-cocoa Cocoaブリッジ</li>
-<li>mruby-ios iOS特化機能、iOSブートストラップ。将来はラッパライブラリ</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
+<li>ダウンしたコンテナには接続を振らない</li>
 </ul>
 
 
-<h3>mruby-common</h3>
+<h2>SSH Router</h2>
+
+<p><a href="http://github.com/mizzy/openssh-script-auth">技術情報</a></p>
 
 <ul>
-<li>iPhone、Android 共通機能</li>
-<li>POSIX、ランダムなど</li>
+<li>git  -> Git Server</li>
+<li>sftp -> File Server</li>
+<li>ssh  -> Container</li>
 </ul>
 
 
-<h3>mruby-cocoa Cocoaブリッジ</h3>
+<p>このルーティングを実現する仕組み。</p>
 
 <ul>
-<li>cocoaの動的支援（文字列リクエストでクラスのポインタを取得、など）を使っている。</li>
-<li>UIウィンドウからインスタンスを作ってVisibleにする。など</li>
-<li>ObjC-Class &lt; Ruby-Class &lt; ObjC-Class</li>
-<li>ruby からの呼び出時は、リフレクションする。
-
-<ul>
-<li>define で定義すると、ruby、objC 両方からコール可能な定義になる</li>
-<li>Class#_method で、rubyからobjCのメソッドを呼ぶ。</li>
-</ul>
-</li>
-<li>ObjC object と可換な Ruby object</li>
-<li>今バージョンはメモリリークがある。（リセット連打で落ちたりする）</li>
-<li>メモリ管理 ObjCメモリ管理を Swizzle して、実態はmrubyの管理にしている。
-
-<ul>
-<li>重い！全メモリアクセスをフックするため</li>
-</ul>
-</li>
-<li>マルチスレッド非対応。複数のVMを同アプリで起動し、スレッドのように扱うアイデアで検討中</li>
+<li>AuthorizedKeysScript</li>
+<li>適切にサーバー名、パス情報を修正して実行</li>
+<li>鍵情報の実態はMySQLで管理</li>
 </ul>
 
 
-<h3>mruby アプリケーション</h3>
+<h2>Deploy Servers</h2>
 
-<ul>
-<li>app.rb
-
-<ul>
-<li>hello.rb</li>
-</ul>
-</li>
-</ul>
-
+<p><a href="http://bit.ly/NBbj9F">技術情報</a></p>
 ]]></content>
   </entry>
   

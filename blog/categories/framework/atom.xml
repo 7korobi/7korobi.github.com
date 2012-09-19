@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: framework | 7korobi Blog]]></title>
+  <link href="http://7korobi.github.com/blog/categories/framework/atom.xml" rel="self"/>
+  <link href="http://7korobi.github.com/"/>
+  <updated>2012-09-19T19:18:09+09:00</updated>
+  <id>http://7korobi.github.com/</id>
+  <author>
+    <name><![CDATA[ななころび]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[rubykaigi2012 Ruby on Rails The Bad Parts]]></title>
+    <link href="http://7korobi.github.com/blog/2012/09/18/session-dci/"/>
+    <updated>2012-09-18T12:00:00+09:00</updated>
+    <id>http://7korobi.github.com/blog/2012/09/18/session-dci</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/sprk2012/sprk2012-cfp">札幌rubykaigi2012</a></p>
+
+<p><a href="http://www.ustream.tv/recorded/25420080">動画</a></p>
+
+<p>railsの理想のひとつにclean code（整頓されたプログラム）があります。
+けど現実のプロダクトでは難しいよね。</p>
+
+<p>今のRailsは、足りない！</p>
+
+<h3>Rails問題点 ⇨ 解決案</h3>
+
+<ul>
+<li>Helperが大きすぎる ⇨ Decolator</li>
+<li>partialが多すぎる  ⇨ cells</li>
+<li>Modelが太り過ぎる  ⇨ ライブラリ化、Acivity Layer</li>
+</ul>
+
+
+<p>こうした整理を行った手法を、Data-Context-Interaction(DCI)と呼ぶ。</p>
+
+<h3>Helperは我々を助けてくれない</h3>
+
+<ul>
+<li>viewは、それぞれ独立でいるのが理想</li>
+<li>共通のHelperとか…</li>
+<li>Decolator を使おう！
+
+<ul>
+<li><a href="https://github.com/jcasimir/draper">Draper</a>
+
+<ul>
+<li>メソッドが変わってしまう</li>
+<li>associated objects に対しても自動的にいける</li>
+</ul>
+</li>
+<li><a href="https://github.com/amatsuda/active_decorator">ActiveDecorator</a></li>
+</ul>
+</li>
+</ul>
+
+
+<h3>partialはpartsではない</h3>
+
+<p><a href="https://github.com/apotonick/cells">cells</a></p>
+
+<ul>
+<li>railsにview componentを提供するもの</li>
+<li>mini controller、partial view で作る。</li>
+</ul>
+
+
+<p>app/cells/
+  sidebar_cell.rb
+  sidebar/recent_tags.html.haml</p>
+
+<p>= render_cell :sidebar, :recent_tags
+= rencer_cell :answers, :index, @questions</p>
+
+<h3>modelになるには太り過ぎ</h3>
+
+<ul>
+<li>とあるモデルが500ライン以上！</li>
+<li>アプリケーションのために小さなライブラリを作ろう</li>
+<li>例：taggable とか</li>
+</ul>
+
+
+<h4>Activity Layer</h4>
+
+<p>ユーザーアクティビティの単位でクラス化して、module includeする。</p>
+
+<ul>
+<li>複数のモデルが絡むロジックをどこに置くか？</li>
+<li>class My::AnswerAcceptingsController#update</li>
+<li>class AcceptAnswerActivity#do_process</li>
+</ul>
+
+
+<p>Common Point of Common Pitfalls
+アプリケーションロジックの適切な置き場所を、railsが提供していないという問題。</p>
+]]></content>
+  </entry>
+  
+</feed>
