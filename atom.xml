@@ -4,7 +4,7 @@
   <title><![CDATA[7korobi Blog]]></title>
   <link href="http://7korobi.github.com/atom.xml" rel="self"/>
   <link href="http://7korobi.github.com/"/>
-  <updated>2012-09-19T19:18:09+09:00</updated>
+  <updated>2012-09-19T19:28:03+09:00</updated>
   <id>http://7korobi.github.com/</id>
   <author>
     <name><![CDATA[ななころび]]></name>
@@ -129,9 +129,9 @@ EC2 Instance を仮想コンテナで区切っている。
   
   <entry>
     <title type="html"><![CDATA[rubykaigi2012 Ruby + iOS = Super awesome!]]></title>
-    <link href="http://7korobi.github.com/blog/2012/09/18/session-platform/"/>
+    <link href="http://7korobi.github.com/blog/2012/09/18/session-mobiruby/"/>
     <updated>2012-09-18T12:00:00+09:00</updated>
-    <id>http://7korobi.github.com/blog/2012/09/18/session-platform</id>
+    <id>http://7korobi.github.com/blog/2012/09/18/session-mobiruby</id>
     <content type="html"><![CDATA[<p><a href="https://github.com/sprk2012/sprk2012-cfp">札幌rubykaigi2012</a></p>
 
 <p><a href="http://www.ustream.tv/recorded/25396312">動画</a></p>
@@ -759,6 +759,32 @@ Duck typing style</p>
 <li>Setなど、正規形をもたないオブジェクトに対する照合は？</li>
 </ul>
 
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[rubykaigi2012 事例紹介]]></title>
+    <link href="http://7korobi.github.com/blog/2012/09/18/session-example/"/>
+    <updated>2012-09-18T12:00:00+09:00</updated>
+    <id>http://7korobi.github.com/blog/2012/09/18/session-example</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/sprk2012/sprk2012-cfp">札幌rubykaigi2012</a></p>
+
+<h2>料理を支える技術2012</h2>
+
+<p><a href="http://www.ustream.tv/recorded/25395951">動画</a></p>
+
+<h2>クックパッドの作り方</h2>
+
+<p><a href="http://www.ustream.tv/recorded/25395485">動画</a></p>
+
+<h2>おやすみシャワーができるまで</h2>
+
+<p><a href="http://www.ustream.tv/recorded/25450504">動画</a></p>
+
+<h2>Aaron Patterson Keynote</h2>
+
+<p><a href="http://www.ustream.tv/recorded/25414494">動画</a>
+@takoyakikamen</p>
 ]]></content>
   </entry>
   

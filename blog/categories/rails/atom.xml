@@ -4,7 +4,7 @@
   <title><![CDATA[Category: rails | 7korobi Blog]]></title>
   <link href="http://7korobi.github.com/blog/categories/rails/atom.xml" rel="self"/>
   <link href="http://7korobi.github.com/"/>
-  <updated>2012-09-19T19:18:09+09:00</updated>
+  <updated>2012-09-19T19:28:03+09:00</updated>
   <id>http://7korobi.github.com/</id>
   <author>
     <name><![CDATA[ななころび]]></name>
@@ -129,9 +129,9 @@ EC2 Instance を仮想コンテナで区切っている。
   
   <entry>
     <title type="html"><![CDATA[rubykaigi2012 Ruby + iOS = Super awesome!]]></title>
-    <link href="http://7korobi.github.com/blog/2012/09/18/session-platform/"/>
+    <link href="http://7korobi.github.com/blog/2012/09/18/session-mobiruby/"/>
     <updated>2012-09-18T12:00:00+09:00</updated>
-    <id>http://7korobi.github.com/blog/2012/09/18/session-platform</id>
+    <id>http://7korobi.github.com/blog/2012/09/18/session-mobiruby</id>
     <content type="html"><![CDATA[<p><a href="https://github.com/sprk2012/sprk2012-cfp">札幌rubykaigi2012</a></p>
 
 <p><a href="http://www.ustream.tv/recorded/25396312">動画</a></p>
@@ -713,6 +713,32 @@ Duck typing style</p>
   </entry>
   
   <entry>
+    <title type="html"><![CDATA[rubykaigi2012 事例紹介]]></title>
+    <link href="http://7korobi.github.com/blog/2012/09/18/session-example/"/>
+    <updated>2012-09-18T12:00:00+09:00</updated>
+    <id>http://7korobi.github.com/blog/2012/09/18/session-example</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/sprk2012/sprk2012-cfp">札幌rubykaigi2012</a></p>
+
+<h2>料理を支える技術2012</h2>
+
+<p><a href="http://www.ustream.tv/recorded/25395951">動画</a></p>
+
+<h2>クックパッドの作り方</h2>
+
+<p><a href="http://www.ustream.tv/recorded/25395485">動画</a></p>
+
+<h2>おやすみシャワーができるまで</h2>
+
+<p><a href="http://www.ustream.tv/recorded/25450504">動画</a></p>
+
+<h2>Aaron Patterson Keynote</h2>
+
+<p><a href="http://www.ustream.tv/recorded/25414494">動画</a>
+@takoyakikamen</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[rubykaigi2012 Ruby on Rails The Bad Parts]]></title>
     <link href="http://7korobi.github.com/blog/2012/09/18/session-dci/"/>
     <updated>2012-09-18T12:00:00+09:00</updated>
@@ -797,131 +823,6 @@ Duck typing style</p>
 
 <p>Common Point of Common Pitfalls
 アプリケーションロジックの適切な置き場所を、railsが提供していないという問題。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[TRPG on 人狼議事]]></title>
-    <link href="http://7korobi.github.com/blog/2012/02/26/trpg-on-giji/"/>
-    <updated>2012-02-26T13:38:00+09:00</updated>
-    <id>http://7korobi.github.com/blog/2012/02/26/trpg-on-giji</id>
-    <content type="html"><![CDATA[<h2>目的</h2>
-
-<p>人狼議事のサイト上で、TRPGを遊べるようにする。
-TRPGには、GMとプレイヤーがシナリオに参加し、集まったキャラクターたちが、次々とシーンを進んでゆき、シナリオを達成する。
-人狼ゲームの考え方と対照すると、下のようになる。</p>
-
-<ul>
-<li><p>村＝シナリオ、村立て＝GM</p></li>
-<li><p>１日＝１シーン</p></li>
-</ul>
-
-
-<h2>シナリオ</h2>
-
-<p>シナリオはそれぞれタイトル、説明書きを持つ。
-シナリオにはシーンが追加されていく。</p>
-
-<h4>進行中</h4>
-
-<p>進行中のシナリオは、下の特徴を持つ。</p>
-
-<ul>
-<li>独り言、内緒話、秘密シーンの閲覧に制限がある。</li>
-</ul>
-
-
-<h4>終了</h4>
-
-<p>すべてのシーンが終了すると、シナリオも終了する。また、シナリオを終了すると、すべてのシーンが終了する。
-終了したシナリオは下の特徴を持つ。</p>
-
-<ul>
-<li>シーン作成ができない。</li>
-<li>すべての発言、シーンでの秘密が公開される。</li>
-</ul>
-
-
-<h2>シーン</h2>
-
-<p>シーンは作成した順に並び、それぞれがタイトルを持つ。
-シーンにはGMが設定する、下の４種類のタイプがある。</p>
-
-<p>開始から２４時間が過ぎると、このシーンはCLOSEに変化する。</p>
-
-<h4>OPEN</h4>
-
-<p>公開。
-プロローグを含む（プロローグでは参加操作が可能）。
-各キャラクターは自分の操作か、GMの操作でこのシーンに参加してよい。</p>
-
-<h4>INVITE</h4>
-
-<p>招待。
-各キャラクターはGMの操作でこのシーンに参加してよい。</p>
-
-<h4>SECRET</h4>
-
-<p>秘密。
-各キャラクターはGMの操作でこのシーンに参加してよい。
-発言内容は、参加中のキャラクターにのみ閲覧可能。</p>
-
-<h4>CLOSE</h4>
-
-<p>終了。
-キャラクターは参加できない。
-キャラクターは独り言のみ投稿できる。</p>
-
-<h2>発言</h2>
-
-<p>キャラクターやGMが投稿する発言は、下記の種類がある。</p>
-
-<ul>
-<li><p>発言（コール）</p></li>
-<li><p>発言（キャラクターロール）</p></li>
-<li><p>内緒話</p></li>
-<li><p>独り言</p></li>
-<li><p>GM投稿</p></li>
-<li><p>GM独話</p></li>
-<li><p>管理人投稿</p></li>
-<li><p>メモ（GM）</p></li>
-<li><p>メモ（プレイヤー発言）</p></li>
-</ul>
-
-
-<h2>キャラクター</h2>
-
-<p>参加したプレイヤーは、ひとつのキャラクターを持つ。
-キャラクターはそれぞれ、ひとつのシーンに参加中となる。</p>
-
-<p>キャラクターにはそれぞれ、下の操作が可能。</p>
-
-<ul>
-<li><p>発言（コール）</p></li>
-<li><p>発言（キャラクターロール）</p></li>
-<li><p>内緒話</p></li>
-<li><p>独り言</p></li>
-<li><p>メモ（プレイヤー発言）</p></li>
-<li><p>現在より後の、公開シーンへの移動</p></li>
-</ul>
-
-
-<h2>GM</h2>
-
-<p>村を建てたプレイヤーは、その村のゲームマスターとなる。
-ゲームマスターはすべてのシーンで、下の操作が可能。</p>
-
-<ul>
-<li><p>GM投稿（ＮＰＣ発言、システム、状況ロール などに使う。）</p></li>
-<li><p>GM独話（キャラクターに秘密でサイコロを振る、などの行為に使う。）</p></li>
-<li><p>メモ（GM）</p></li>
-<li><p>現在より後の、終了以外のシーンへの、指定キャラクターの移動</p></li>
-<li><p>新しいシーンを作り、タイトルをつける。</p></li>
-<li><p>シーンの編集</p></li>
-<li><p>シナリオの編集</p></li>
-<li><p>シナリオの終了</p></li>
-</ul>
-
 ]]></content>
   </entry>
   

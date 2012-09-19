@@ -4,7 +4,7 @@
   <title><![CDATA[Category: iOS | 7korobi Blog]]></title>
   <link href="http://7korobi.github.com/blog/categories/ios/atom.xml" rel="self"/>
   <link href="http://7korobi.github.com/"/>
-  <updated>2012-09-19T19:18:09+09:00</updated>
+  <updated>2012-09-19T19:28:03+09:00</updated>
   <id>http://7korobi.github.com/</id>
   <author>
     <name><![CDATA[ななころび]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[rubykaigi2012 Ruby + iOS = Super awesome!]]></title>
-    <link href="http://7korobi.github.com/blog/2012/09/18/session-platform/"/>
+    <link href="http://7korobi.github.com/blog/2012/09/18/session-mobiruby/"/>
     <updated>2012-09-18T12:00:00+09:00</updated>
-    <id>http://7korobi.github.com/blog/2012/09/18/session-platform</id>
+    <id>http://7korobi.github.com/blog/2012/09/18/session-mobiruby</id>
     <content type="html"><![CDATA[<p><a href="https://github.com/sprk2012/sprk2012-cfp">札幌rubykaigi2012</a></p>
 
 <p><a href="http://www.ustream.tv/recorded/25396312">動画</a></p>

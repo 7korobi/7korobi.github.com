@@ -209,7 +209,7 @@ EC2 Instance を仮想コンテナで区切っている。
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/09/18/session-platform/">Rubykaigi2012 Ruby + iOS = Super Awesome!</a></h1>
+      <h1 class="entry-title"><a href="/blog/2012/09/18/session-mobiruby/">Rubykaigi2012 Ruby + iOS = Super Awesome!</a></h1>
     
     
       <p class="meta">
@@ -886,6 +886,59 @@ Duck typing style</p>
 <li>Setなど、正規形をもたないオブジェクトに対する照合は？</li>
 </ul>
 
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/09/18/session-example/">Rubykaigi2012 事例紹介</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-18T12:00:00+09:00" pubdate data-updated="true">2012年09月18日</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="https://github.com/sprk2012/sprk2012-cfp">札幌rubykaigi2012</a></p>
+
+<h2>料理を支える技術2012</h2>
+
+<p><a href="http://www.ustream.tv/recorded/25395951">動画</a></p>
+
+<h2>クックパッドの作り方</h2>
+
+<p><a href="http://www.ustream.tv/recorded/25395485">動画</a></p>
+
+<h2>おやすみシャワーができるまで</h2>
+
+<p><a href="http://www.ustream.tv/recorded/25450504">動画</a></p>
+
+<h2>Aaron Patterson Keynote</h2>
+
+<p><a href="http://www.ustream.tv/recorded/25414494">動画</a>
+@takoyakikamen</p>
 </div>
   
   
@@ -1843,65 +1896,6 @@ DDコマンドなどで、ディスクIOスピードを計測しておく。</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/01/20/mongodb-2012-attention-app/">MongoDB_2012 アプリから見た弱点と対策</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-01-20T16:05:00+09:00" pubdate data-updated="true">2012年01月20日</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>トランザクション的な書込操作</h3>
-
-<p>10gen社は、今後も含めそうした方向への投資をしない。
-<strong>ameba pico</strong>、<strong>アニマルランド</strong>の事例のように、トランザクションを求めない設計をしてゆくと共に、どうしても必要だが高いスケーラビリティを求めはしない、という部分については、RDBMSを併用するなどしてそれぞれの長所を活かすとよい。</p>
-
-<h3>non-block Write</h3>
-
-<p>データの書き込みが完了するまで待たずにデータベースがスレッドを開放し、次の操作を受け付ける機能。
-下記の点が指摘されている。</p>
-
-<ul>
-<li><p>プライマリDBへデータ送信が終わった後、Journalに入るまでのタイミングでDownした場合、情報が失われる。</p></li>
-<li><p>バッチwrite処理中、secondary stale. となる可能性
-　　プライマリDBが大量のwriteを処理しきれず、60secぶんのOPlogを使い果たすと発生する。</p></li>
-</ul>
-
-
-<p><a href="http://d.hatena.ne.jp/babie/searchdiary?word=safely">セーフモードで永続化を行う</a>と、これらの現象は発生しなくなる。</p>
-
-<h3>chunk migration中のカウント</h3>
-
-<p>chunk migration中に<a href="http://d.hatena.ne.jp/matsuou1/20110415/1302873577">count値がずれて表示される</a>現象。</p>
-
-<p>（mongoDB2.0 までには対策なし。）</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1921,7 +1915,7 @@ DDコマンドなどで、ディスクIOスピードを計測しておく。</p>
       </li>
     
       <li class="post">
-        <a href="/blog/2012/09/18/session-platform/">rubykaigi2012 Ruby + iOS = Super awesome!</a>
+        <a href="/blog/2012/09/18/session-mobiruby/">rubykaigi2012 Ruby + iOS = Super awesome!</a>
       </li>
     
       <li class="post">
@@ -1929,11 +1923,11 @@ DDコマンドなどで、ディスクIOスピードを計測しておく。</p>
       </li>
     
       <li class="post">
-        <a href="/blog/2012/09/18/session-dci/">rubykaigi2012 Ruby on Rails The Bad Parts</a>
+        <a href="/blog/2012/09/18/session-example/">rubykaigi2012 事例紹介</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2012/02/26/trpg-on-giji/">TRPG on 人狼議事</a>
+        <a href="/blog/2012/09/18/session-dci/">rubykaigi2012 Ruby on Rails The Bad Parts</a>
       </li>
     
   </ul>
