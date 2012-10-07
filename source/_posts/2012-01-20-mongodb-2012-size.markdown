@@ -1,0 +1,87 @@
+---
+layout: post
+title: "MongoDB,2012 ハードウェアサイズ"
+date: 2012-01-20 16:05
+comments: true
+categories: MongoDB
+---
+
+### Disk IO ###
+ディスクの容量はあまり重要ではなく、IO速度を考えるべき。
+DDコマンドなどで、ディスクIOスピードを計測しておく。
+
+``` bash
+$ dd if=/dev/zero of=zero.dat bs=1 count=1000000
+1000000+0 records in
+1000000+0 records out
+1000000 bytes (1.0 MB) copied, 1.72607 seconds, 579 kB/s
+```
+
+### メモリ量 ###
+ワーキングセットの大きさから計算する。
+ワーキングセットとは、ドキュメント取り扱い単位のこと。
+
+stat()コマンドでワーキングセットの平均オブジェクトサイズや、最大サイズといった情報がとれる。
+
+``` ruby
+> Model.send(:collection).stats
+MONGODB db['$cmd'].find({:collstats=>"models"}).limit(-1)
+{"ns"=>"db.models",
+ "size"=>128,
+ "avgObjSize"=>128.0,
+ ...
+}
+```
+
+
+## 計算式の例 ##
+ある会社での計算式の事例。
+
+| CPU    | Intel(R)Xeon(R) CPU X5650 2.67GHz **1core** 
+| ------ | ---
+| Memory | 4GB 
+| Disk   | 50GB iSCSI 
+| OS     | CentOS5.5 64bit 
+| DBs    | mongodb 1.8.0 
+|        | - 5 Replica Set 
+|        | - 1 Arbiter 
+
+
+- Query per Second 4500.
+
+- GET : 4500×CPUs
+
+CPUごとに、まっすぐ線形に性能が伸びる様子。
+
+- SET : 0.05×DDscore / Size
+ 
+ディスクIOの速度が直接影響する様子です。Replica Setのぶん、書き込み性能低下がある。
+
+
+## 100GB パフォーマンステスト結果 ##
+およそ１００GBのデータ（2GBのチャンクが４８個）あるデータベースに対して、各操作のパフォーマンス計測。
+
+|                         |        sec |   hour  | docs/sec
+| ----------------------- | ---------: | ------: | -------:
+| Batch insert(1000 docs) | **17,906** | **4.8** | **3358**
+|                         |            |         | 
+| Ensure index(1000 docs) |  **4,049** | **1.1** | 
+|  - primary              |      2,101 |     0.6 |
+|  - secondary            |      1,948 |     0.5 | 
+|                         |            |         | 
+| Add one Replica node    |  **5,833** | **1.6** |  
+|  - Get files 2GB×48     |      2,120 |     0.6 |  
+|  - _id indexing         |      1,406 |     0.4 |  
+|  - uniq indexing        |      2,251 |     0.6 | 
+|  - ...etc               |         56 |     0.0 | 
+
+## Sharding効果 ##
+MapReduceで、ShardKeyにヒットする検索メソッド実行と、全体スキャンの速度比較。
+
+- およそ 8500倍の速度差。
+
+|                            |       sec 
+| -------------------------- | --------: 
+| map reduce by unique       |     0.368 
+| scan all data(39,092 keys) | 3,116.000
+

@@ -1,0 +1,76 @@
+---
+layout: post
+title: "module"
+date: 2011-12-08 17:16
+comments: true
+categories: ruby
+---
+
+一列目
+``` ruby
+module A
+  def a
+  end
+  A = 1
+end
+
+class B
+  include A
+end
+
+class C
+  extend A
+end
+```
+
+二列目
+``` ruby
+module A
+  def a
+  end
+  A = 1
+  module_function :a
+end
+
+class B
+  include A
+end
+
+class C
+  extend A
+end
+```
+
+三列目
+``` ruby
+module A
+  def self.a
+  end
+  A = 1
+end
+
+class B
+  include A
+end
+
+class C
+  extend A
+end
+```
+
+|\2. 書いたソースコード    |_.一列目|_.二列目|_.三列目|
+|_.Aのモジュール関数       |_.A.a           |=.×|=.○|=.○|
+|_.Aの定数               |_.A::A           |=.○|=.○|=.○|
+|_.Bの特異メソッド(private)|_.B.send(:a)    |=.×|=.×|=.×|
+|_.Bの特異メソッド         |_.B.a           |=.×|=.×|=.×|
+|_.Bのメソッド(private)   |_.B.new.send(:a)|=.○|=.○|=.×|
+|_.Bのメソッド            |_.B.new.a       |=.○|=.×|=.×|
+|_.Bの定数               |_.B::A           |=.○|=.○|=.○|
+|_.Cの特異メソッド(private)|_.C.send(:a)    |=.○|=.○|=.×|
+|_.Cの特異メソッド         |_.C.a           |=.×|=.○|=.×|
+|_.Cのメソッド(private)   |_.C.new.send(:a)|=.×|=.○|=.×|
+|_.Cのメソッド            |_.C.new.a       |=.×|=.×|=.×|
+|_.Cの定数               |_.C::A           |=.×|=.×|=.×|
+
+
+

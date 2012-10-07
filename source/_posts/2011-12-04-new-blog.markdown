@@ -1,0 +1,39 @@
+---
+layout: post
+title: "New Blog"
+date: 2011-12-04 21:00
+comments: true
+categories:
+---
+
+
+
+書き溜める場所にしようっと。
+
+h2.準備
+``` sh
+git clone git://github.com/imathis/octopress.git octopress
+cd octopress
+
+github -> new repository
+  name: 7korobi.github.com
+  url:  7korobi.github.com
+
+rake setup_github_pages
+git@github.com:7korobi/7korobi.github.com.git
+```
+
+h2.記事作りから公開まで
+``` sh
+rake new_post["New Blog"]
+
+vi source/_posts/2011-12-05-new-blog.markdown
+
+vi _config.yml
+
+rake preview
+rake deploy
+```
+
+- [markdown記法](https://gist.github.com/1438677)
+- [textile記法](http://redmine.jp/tech_note/textile)
